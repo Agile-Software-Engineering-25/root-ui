@@ -3,6 +3,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { registerApplication, start, getAppNames } from "single-spa";
 import apps from "./apps";
+import App from "./components/App";
 
 apps.forEach((app) => {
   registerApplication({
@@ -27,8 +28,6 @@ start();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <nav>Navigations Bar</nav>
-    <div id="single-spa-application:@agile-software-engineering/frontend-template"></div>
-    <footer>Footer</footer>
+    <App />
   </StrictMode>
 );
