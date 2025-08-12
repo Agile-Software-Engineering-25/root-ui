@@ -8,9 +8,12 @@
     "build": "tsc -b && vite build",
     "start:build": "vite preview",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "init": "sh ./scripts/prepare.sh",
+    "updateSharedComponents": "sh ./scripts/updateSharedComponents.sh"
   },
   "dependencies": {
+    "@agile-software/shared-components": "file:./shared-components",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "single-spa": "6.0.1",
