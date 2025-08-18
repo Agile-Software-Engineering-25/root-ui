@@ -1,7 +1,56 @@
 import EmbeddedApplication from "./EmbeddedApplication/EmbeddedApplication";
 
-/* dont come at me for this design - its 2 am and I just want to get this working */
+import { useAuth } from "react-oidc-context";
+import { useEffect, useRef } from "react";
+import apps from "../apps";
+import { registerApplication, getAppNames } from "single-spa";
+import { useAuthCommunication } from "../hooks/useAuthCommunication";
+
 const App = () => {
+  const auth = useAuth();
+  const appsRegistered = useRef(false);
+
+  useEffect(() => {
+    if (!appsRegistered.current) {
+      apps.forEach((app) => {
+        if (!getAppNames().includes(app.name)) {
+          registerApplication({
+            name: app.name,
+            activeWhen: app.activeWhen,
+            customProps: {
+              domElement: document.querySelector(app.mountWhere),
+            },
+            app: () => import(/* @vite-ignore */ app.name),
+          });
+        }
+      });
+      appsRegistered.current = true;
+    }
+  }, []);
+
+  useAuthCommunication({
+    user: auth.user,
+    isAuthenticated: auth.isAuthenticated,
+    isLoading: auth.isLoading,
+    error: auth.error
+  });
+
+  // display info of current login status
+  switch (auth.activeNavigator) {
+    case "signinSilent":
+      return <div>Signing you in...</div>;
+    case "signoutRedirect":
+      return <div>Signing you out...</div>;
+  }
+
+  if (auth.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (auth.error) {
+    return <div>Auth error: {auth.error.message}</div>;
+  }
+
   return (
     <div
       style={{
@@ -19,6 +68,12 @@ const App = () => {
         }}
       >
         Navigations Bar
+
+        {auth.isAuthenticated ?
+          <button onClick={async () => { await auth.signoutRedirect() }}>sign out</button> :
+          <button onClick={async () => { await auth.signinRedirect() }}>sign in</button>
+        }
+
       </nav>
       <EmbeddedApplication
         name="@agile-software-engineering/frontend-template"
