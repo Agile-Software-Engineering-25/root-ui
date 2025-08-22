@@ -28,12 +28,7 @@ const App = () => {
     }
   }, []);
 
-  useAuthCommunication({
-    user: auth.user,
-    isAuthenticated: auth.isAuthenticated,
-    isLoading: auth.isLoading,
-    error: auth.error
-  });
+  useAuthCommunication(auth);
 
   // display info of current login status
   switch (auth.activeNavigator) {
