@@ -8,9 +8,11 @@ import { WebStorageStateStore } from "oidc-client-ts";
 import { AuthProvider } from "react-oidc-context";
 
 // auth config
+const oidcAuthority = "http://127.0.0.1:8080"
+
 const oidcConfig = {
-  authority: "http://127.0.0.1:8080/realms/hvs",
-  client_id: "root_ui",
+  authority: `${oidcAuthority}/realms/sau`,
+  client_id: "default",
   redirect_uri: window.location.origin + '/',
   response_type: 'code',
   post_logout_redirect_uri: window.location.origin,
