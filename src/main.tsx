@@ -8,7 +8,7 @@ import { WebStorageStateStore } from "oidc-client-ts";
 import { AuthProvider } from "react-oidc-context";
 
 // auth config
-const oidcAuthority = "http://127.0.0.1:8080"
+const oidcAuthority = "http://localhost:8080"
 
 const oidcConfig = {
   authority: `${oidcAuthority}/realms/sau`,

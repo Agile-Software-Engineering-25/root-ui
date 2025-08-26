@@ -66,7 +66,7 @@ const App = () => {
 
         {auth.isAuthenticated ?
           <button onClick={async () => { await auth.signoutRedirect() }}>sign out</button> :
-          <button onClick={async () => { await auth.signinRedirect() }}>sign in</button>
+          auth.signinRedirect()
         }
 
       </nav>
