@@ -8,7 +8,8 @@ import { WebStorageStateStore } from "oidc-client-ts";
 import { AuthProvider } from "react-oidc-context";
 
 // auth config
-const oidcAuthority = "http://localhost:8080"
+// using this lib: https://github.com/authts/react-oidc-context#documentation
+const oidcAuthority = "https://keycloak.sau-portal.de"
 
 const oidcConfig = {
   authority: `${oidcAuthority}/realms/sau`,
