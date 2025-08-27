@@ -2,7 +2,7 @@
 export default [
   {
     name: "@agile-software-engineering/frontend-template",
-    activeWhen: "/",
     mountWhere: "#frontend-template",
+    basename: "/",
   },
 ];
