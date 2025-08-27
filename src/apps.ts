@@ -3,6 +3,6 @@ export default [
   {
     name: "@agile-software-engineering/frontend-template",
     mountWhere: "#frontend-template",
-    basename: "/test",
+    basename: "/",
   },
 ];
