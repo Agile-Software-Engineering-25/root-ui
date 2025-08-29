@@ -19,6 +19,7 @@ const App = () => {
             activeWhen: app.activeWhen,
             customProps: {
               domElement: document.querySelector(app.mountWhere),
+              userData: auth.user
             },
             app: () => import(/* @vite-ignore */ app.name),
           });
@@ -43,8 +44,6 @@ const App = () => {
     if(error) {
         return <div>An error occured</div>
     }
-
-  
 
   return (
     <div
@@ -77,6 +76,7 @@ const App = () => {
       <EmbeddedApplication
         name="@agile-software-engineering/frontend-template"
         sx={{ flexGrow: 1 }}
+        userProfile={ auth.user }
       />
       <footer
         style={{
