@@ -1,6 +1,6 @@
 import EmbeddedApplication from "./EmbeddedApplication/EmbeddedApplication";
 
-import { useAuth } from "react-oidc-context";
+import { useAuth, useAutoSignin } from "react-oidc-context";
 import { useEffect, useRef } from "react";
 import apps from "../apps";
 import { registerApplication, getAppNames } from "single-spa";
@@ -29,22 +29,22 @@ const App = () => {
   }, []);
 
   useAuthCommunication(auth);
+  
+    const { isLoading, isAuthenticated, error } = useAutoSignin();
 
-  // display info of current login status
-  switch (auth.activeNavigator) {
-    case "signinSilent":
-      return <div>Signing you in...</div>;
-    case "signoutRedirect":
-      return <div>Signing you out...</div>;
-  }
+    if (isLoading) {
+        return <div>Signing you in/out...</div>;
+    }
 
-  if (auth.isLoading) {
-    return <div>Loading...</div>;
-  }
+    if (!isAuthenticated) {
+        return <div>Unable to log in</div>;
+    }
 
-  if (auth.error) {
-    return <div>Auth error: {auth.error.message}</div>;
-  }
+    if(error) {
+        return <div>An error occured</div>
+    }
+
+  
 
   return (
     <div
@@ -62,13 +62,17 @@ const App = () => {
           width: "calc(100% - 2rem)",
         }}
       >
-        Navigations Bar
-
-        {auth.isAuthenticated ?
-          <button onClick={async () => { await auth.signoutRedirect() }}>sign out</button> :
-          auth.signinRedirect()
-        }
-
+        <div style={{float: "left"}}>
+          Welcome to SAU, { auth.user?.profile.given_name }
+        </div>
+        <div style={{float: "right"}}>
+          {
+            auth.isAuthenticated ?
+              <button onClick={async () => { await auth.signoutRedirect() }}>sign out</button> 
+              :
+              null
+          }
+        </div>
       </nav>
       <EmbeddedApplication
         name="@agile-software-engineering/frontend-template"
