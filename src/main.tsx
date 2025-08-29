@@ -9,7 +9,8 @@ import { AuthProvider } from "react-oidc-context";
 
 // auth config
 // using this lib: https://github.com/authts/react-oidc-context#documentation
-const oidcAuthority = "https://keycloak.sau-portal.de"
+// https://keycloak.sau-portal.de, cors does not work yet
+const oidcAuthority = "http://localhost:8080"
 
 const oidcConfig = {
   authority: `${oidcAuthority}/realms/sau`,
