@@ -12,6 +12,8 @@ import { AuthProvider } from "react-oidc-context";
 // https://keycloak.sau-portal.de, cors does not work yet
 const oidcAuthority = "http://localhost:8080"
 
+// you can use this for scope config: https://authts.github.io/oidc-client-ts/interfaces/UserManagerSettings.html#scope
+// other config params go here aswell
 const oidcConfig = {
   authority: `${oidcAuthority}/realms/sau`,
   client_id: "default",
@@ -23,6 +25,8 @@ const oidcConfig = {
   onSigninCallback: () => {
     window.history.replaceState({}, document.title, window.location.pathname);
   },
+  // openid is always required (?)
+  scope: "openid profile email demo"
 };
 
 
