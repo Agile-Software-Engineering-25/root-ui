@@ -8,9 +8,9 @@ import App from "./components/App";
 apps.forEach((app) => {
   registerApplication({
     name: app.name,
-    activeWhen: app.activeWhen,
+    activeWhen: app.basename,
     customProps: {
-      domElement: document.querySelector(app.mountWhere),
+      basename: app.basename,
     },
     app: () => import(/* @vite-ignore */ app.name),
   });
