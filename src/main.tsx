@@ -4,6 +4,21 @@ import { createRoot } from "react-dom/client";
 import { registerApplication, start, getAppNames } from "single-spa";
 import apps from "./apps";
 import App from "./components/App";
+import { AuthProvider } from "react-oidc-context";
+import { WebStorageStateStore } from "oidc-client-ts";
+
+const oidcConfig = {
+  authority: "http://localhost:8080/realms/hvs2",
+  client_id: "root_ui",
+  redirect_uri: window.location.origin + '/',
+  response_type: 'code',
+  post_logout_redirect_uri: window.location.origin,
+  userStore: new WebStorageStateStore({ store: window.localStorage }),
+  stateStore: new WebStorageStateStore({ store: window.localStorage }),
+  onSigninCallback: () => {
+    window.history.replaceState({}, document.title, window.location.pathname);
+  },
+};
 
 apps.forEach((app) => {
   registerApplication({
@@ -28,6 +43,8 @@ start();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <AuthProvider {...oidcConfig}>
+      <App />
+    </AuthProvider>
   </StrictMode>
 );
