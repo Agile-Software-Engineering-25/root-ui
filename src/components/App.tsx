@@ -1,7 +1,10 @@
+import { useAuth } from "react-oidc-context";
 import EmbeddedApplication from "./EmbeddedApplication/EmbeddedApplication";
 
 /* dont come at me for this design - its 2 am and I just want to get this working */
 const App = () => {
+    const auth = useAuth();
+    
   return (
     <div
       style={{
@@ -23,6 +26,7 @@ const App = () => {
       <EmbeddedApplication
         name="@agile-software-engineering/frontend-template"
         sx={{ flexGrow: 1 }}
+        userData={auth.user}
       />
       <footer
         style={{
