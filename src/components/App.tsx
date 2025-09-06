@@ -16,7 +16,7 @@ const App = () => {
   }
 
   if (auth.error) {
-      return <div>Oops... error caused {auth.error.message}</div>;
+      return <div>Oops... an error occurred: {auth.error.message}</div>;
   }
 
   if (auth.isAuthenticated) {
