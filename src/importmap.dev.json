@@ -1,5 +1,0 @@
-{
-  "imports": {
-    "@agile-software-engineering/frontend-template": "http://localhost:5173/src/singleSpa.tsx"
-  }
-}
