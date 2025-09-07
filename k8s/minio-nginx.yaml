@@ -114,33 +114,6 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
   rules:
-    - host: minio.sau-portal.de
-      http:
-        paths:
-          - path: /user-api
-            pathType: Prefix
-            backend:
-              service:
-                name: minio
-                port:
-                  number: 9000
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: minio
-                port:
-                  number: 9001
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: nginx-ingress
-  namespace: ase-12
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-spec:
-  rules:
     - host: sau-portal.de
       http:
         paths:
@@ -148,9 +121,19 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: nginx
+                name: minio
                 port:
-                  number: 80
+                  number: 9000
+    - host: minio.sau-portal.de
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: minio
+                port:
+                  number: 9001
 ---
 apiVersion: v1
 kind: ConfigMap
