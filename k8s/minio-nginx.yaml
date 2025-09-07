@@ -139,46 +139,33 @@ data:
     events {
         worker_connections 1024;
     }
+
     http {
-        upstream minio_api {
-            server minio:9000;
-        }
-        
         server {
             listen 80;
+
             server_name _;
-            
-            # Serve index.html from MinIO bucket at root
-            location = / {
-                proxy_pass http://minio_api/mybucket/index.html;
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-                proxy_buffering off;
-                proxy_request_buffering off;
-            }
-            
-            # Optional: Proxy other paths to MinIO (if needed)
+
+            # Handle /api/* requests
             location /api/ {
-                proxy_pass http://minio_api/;
+                # Remove the /api prefix before forwarding
+                rewrite ^/api/(.*)$ /$1 break;
+                proxy_pass http://minio:9000;
                 proxy_set_header Host $host;
                 proxy_set_header X-Real-IP $remote_addr;
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
                 proxy_set_header X-Forwarded-Proto $scheme;
-                proxy_buffering off;
-                proxy_request_buffering off;
             }
-            
-            # Serve static assets from MinIO (optional)
-            location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg)$ {
-                proxy_pass http://minio_api/mybucket$uri;
+
+            # Handle all other requests (like /example) to serve root-ui
+            location / {
+                # Always serve index.html for these requests
+                rewrite ^/(.*)$ /root-ui/index.html break;
+                proxy_pass http://minio:9000;
                 proxy_set_header Host $host;
                 proxy_set_header X-Real-IP $remote_addr;
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
                 proxy_set_header X-Forwarded-Proto $scheme;
-                proxy_buffering off;
-                proxy_cache_valid 200 1h;
             }
         }
     }

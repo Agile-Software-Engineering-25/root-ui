@@ -5,10 +5,11 @@ import vitePluginSingleSpa from "vite-plugin-single-spa";
 const PORT = 3000;
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   server: {
     port: PORT,
   },
+  base: command == "serve" ? "" : "/api/root-ui/",
   preview: {
     port: PORT,
   },
@@ -30,4 +31,4 @@ export default defineConfig({
       },
     }),
   ],
-});
+}));
