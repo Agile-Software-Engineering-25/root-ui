@@ -37,14 +37,6 @@ jobs:
         run: |
           $HOME/minio-binaries/mc alias set minio ${{ secrets.MINIO_ENDPOINT }} ${{ secrets.MINIO_ACCESS_KEY }} ${{ secrets.MINIO_SECRET_KEY }}
 
-      - name: Verify bucket exists
-        run: |
-          # Check if bucket exists, create if it doesn't
-          if ! $HOME/minio-binaries/mc ls minio/root-ui >/dev/null 2>&1; then
-            echo "Bucket doesn't exist, creating..."
-            $HOME/minio-binaries/mc mb minio/root-ui
-          fi
-
       - name: Clear existing files in bucket
         run: |
           # Remove all existing files from root-ui bucket
