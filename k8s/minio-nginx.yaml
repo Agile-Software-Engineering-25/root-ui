@@ -144,50 +144,10 @@ data:
             listen 80;
             server_name _;
             
-            # Enable access log for debugging
-            access_log /var/log/nginx/access.log;
-            error_log /var/log/nginx/error.log debug;
-            
-            # Serve index.html from MinIO bucket at root
-            location = / {
-                # Direct proxy to MinIO without upstream for testing
-                proxy_pass http://minio:9000/mybucket/index.html;
-                
-                # Minimal headers - don't override Host
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-                
-                # Disable all redirects and buffering
-                proxy_redirect off;
-                proxy_buffering off;
-                proxy_request_buffering off;
-                
-                # Add debug headers
-                add_header X-Debug-Backend "minio:9000" always;
-                add_header X-Debug-URI "$uri" always;
-            }
-            
-            # Optional: Proxy other paths to MinIO (if needed)
-            location /api/ {
-                proxy_pass http://minio:9000/;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-                proxy_buffering off;
-                proxy_request_buffering off;
-                proxy_redirect off;
-            }
-            
-            # Serve static assets from MinIO (optional)
-            location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg)$ {
-                proxy_pass http://minio:9000/mybucket$uri;
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-                proxy_buffering off;
-                proxy_redirect off;
-                proxy_cache_valid 200 1h;
+            # Simple location that returns Hello World for any request
+            location / {
+                add_header Content-Type text/html;
+                return 200 '<html><body><h1>Hello World from NGINX! 🌍</h1><p>This confirms NGINX + Ingress is working!</p></body></html>';
             }
         }
     }
