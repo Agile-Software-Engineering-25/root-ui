@@ -65,6 +65,30 @@ spec:
   selector:
     app: minio
 ---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minio-ingress-console
+  namespace: ase-12
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+spec:
+  rules:
+    - host: minio.sau-portal.de
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: minio
+                port:
+                  number: 9001
+---
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -105,10 +129,64 @@ spec:
   selector:
     app: nginx
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: ase-12
+data:
+  nginx.conf: |
+    events {
+        worker_connections 1024;
+    }
+    http {
+        upstream minio_api {
+            server minio:9000;
+        }
+        
+        server {
+            listen 80;
+            server_name _;
+            
+            # Serve index.html from MinIO bucket at root
+            location = / {
+                proxy_pass http://minio_api/mybucket/index.html;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_buffering off;
+                proxy_request_buffering off;
+            }
+            
+            # Optional: Proxy other paths to MinIO (if needed)
+            location /api/ {
+                proxy_pass http://minio_api/;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_buffering off;
+                proxy_request_buffering off;
+            }
+            
+            # Serve static assets from MinIO (optional)
+            location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg)$ {
+                proxy_pass http://minio_api/mybucket$uri;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_buffering off;
+                proxy_cache_valid 200 1h;
+            }
+        }
+    }
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minio-ingress-console
+  name: nginx-ingress
   namespace: ase-12
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
@@ -116,51 +194,13 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
   rules:
-    - host: minio.sau-portal.de
+    - host: sau-portal.de
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: minio
+                name: nginx
                 port:
-                  number: 9001
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: nginx-config
-data:
-  nginx.conf: |
-    events {}
-
-    http {
-        upstream minio_api {
-            server minio:9000;  # replace "minio" with your MinIO service name in Kubernetes
-        }
-
-        server {
-            listen 80;
-
-            server_name _;
-
-            location / {
-                proxy_pass http://minio_api;
-
-                # Preserve host + scheme
-                proxy_set_header Host $host;
-                proxy_set_header X-Forwarded-Host $host;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
-
-                # Handle long downloads/uploads
-                proxy_buffering off;
-                proxy_request_buffering off;
-
-                # Optional: enable range requests for CDN
-                proxy_set_header Range $http_range;
-                proxy_set_header If-Range $http_if_range;
-            }
-        }
-    }
+                  number: 80
