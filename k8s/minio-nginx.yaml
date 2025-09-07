@@ -87,9 +87,7 @@ spec:
               service:
                 name: minio
                 port:
-                  number: 9001
----
-
+                  number: 9000
 ---
 apiVersion: apps/v1
 kind: Deployment
