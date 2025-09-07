@@ -114,19 +114,16 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
   rules:
-    - host: sau-portal.de
+    - host: minio.sau-portal.de
       http:
         paths:
-          - path: /
+          - path: /user-api
             pathType: Prefix
             backend:
               service:
                 name: minio
                 port:
                   number: 9000
-    - host: minio.sau-portal.de
-      http:
-        paths:
           - path: /
             pathType: Prefix
             backend:
