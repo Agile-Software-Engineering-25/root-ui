@@ -40,7 +40,7 @@ spec:
               value: minioadmin
           volumeMounts:
             - name: minio-data
-              mountPath: /
+              mountPath: /data
       volumes:
         - name: minio-data
           persistentVolumeClaim:
