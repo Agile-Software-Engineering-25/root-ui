@@ -110,8 +110,10 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-staging
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
-    # Remove the /user-api prefix when forwarding to MinIO
-    traefik.ingress.kubernetes.io/router.middlewares: ase-12-strip-prefix@kubernetescrd
+    # Strip the /user-api prefix before forwarding to MinIO
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-strip-user-api@file
+    # Alternative: use rewrite annotation
+    traefik.ingress.kubernetes.io/rewrite-target: /
   name: minio-ingress
   namespace: ase-12
 spec:
@@ -127,16 +129,6 @@ spec:
                   number: 9000
             path: /user-api
             pathType: Prefix
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: strip-prefix
-  namespace: ase-12
-spec:
-  stripPrefix:
-    prefixes:
-      - /user-api
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
