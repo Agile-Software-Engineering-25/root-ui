@@ -106,26 +106,37 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minio-ingress
-  namespace: ase-12
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-staging
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    # Remove the /user-api prefix when forwarding to MinIO
+    traefik.ingress.kubernetes.io/router.middlewares: ase-12-strip-prefix@kubernetescrd
+  name: minio-ingress
+  namespace: ase-12
 spec:
+  ingressClassName: traefik
   rules:
     - host: minio.sau-portal.de
       http:
         paths:
-          - path: /user-api(/|$)(.*)
-            pathType: ImplementationSpecific
-            backend:
+          - backend:
               service:
                 name: minio
                 port:
                   number: 9000
+            path: /user-api
+            pathType: Prefix
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-prefix
+  namespace: ase-12
+spec:
+  stripPrefix:
+    prefixes:
+      - /user-api
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
