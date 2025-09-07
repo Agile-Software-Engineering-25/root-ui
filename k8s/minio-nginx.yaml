@@ -38,6 +38,8 @@ spec:
               value: minioadmin
             - name: MINIO_ROOT_PASSWORD
               value: minioadmin
+            - name: MINIO_POLICY_OPA_URL
+              value: ""
           volumeMounts:
             - name: minio-data
               mountPath: /data
