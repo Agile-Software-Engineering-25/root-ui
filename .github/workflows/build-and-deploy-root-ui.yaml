@@ -27,7 +27,7 @@ jobs:
 
       - name: Setup MinIO Client
         run: |
-          curl https://dl.min.io/client/mc/release/linux-amd64/mc \
+          curl https://dl.min.io/aistor/mc/release/linux-amd64/mc \
             --create-dirs \
             -o $HOME/minio-binaries/mc
           chmod +x $HOME/minio-binaries/mc
