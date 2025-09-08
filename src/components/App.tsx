@@ -1,32 +1,35 @@
-import { useAuth } from "react-oidc-context";
+import { useAuth, useAutoSignin } from "react-oidc-context";
 import Skeleton from "./Skeleton";
 
 const App = () => {
   const auth = useAuth();
+  const { isLoading, isAuthenticated, error } = useAutoSignin({signinMethod: "signinRedirect"});
 
-  switch (auth.activeNavigator) {
-      case "signinSilent":
-          return <div>Signing you in...</div>;
-      case "signoutRedirect":
-          return <div>Signing you out...</div>;
+  if (isLoading) {
+    return <div>Signing you in/out...</div>;
   }
 
-  if (auth.isLoading) {
-      return <div>Loading...</div>;
+  if(error) {
+    return <div>An error occured: {error.message}</div>
   }
 
-  if (auth.error) {
-      return <div>Oops... error caused {auth.error.message}</div>;
-  }
-
-  if (auth.isAuthenticated) {
+  if (isAuthenticated) {
     const token = auth.user?.access_token;
-    if (!token) return <div>No access token</div>;
+    if (!token) {
+      return <div>
+        <p>Authentication successful but no access token available.</p>
+        <button onClick={() => void auth.signinRedirect()}>Try again</button>
+      </div>;
+    }
 
     return <Skeleton />;
   }
 
-  return <button onClick={() => void auth.signinRedirect()}>Log in</button>;
+  // Fallback
+  return <div>
+    <p>Not authenticated.</p>
+    <button onClick={() => void auth.signinRedirect()}>Log in</button>
+  </div>;
 };
 
 export default App;
