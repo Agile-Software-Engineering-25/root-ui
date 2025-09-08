@@ -1,6 +1,12 @@
 import { useAuth } from "react-oidc-context";
 import Skeleton from "./Skeleton";
 
+import { useAuth, useAutoSignin } from "react-oidc-context";
+import { useEffect, useRef } from "react";
+import apps from "../apps";
+import { registerApplication, getAppNames } from "single-spa";
+import { useAuthCommunication } from "../hooks/useAuthCommunication";
+
 const App = () => {
   const auth = useAuth();
 

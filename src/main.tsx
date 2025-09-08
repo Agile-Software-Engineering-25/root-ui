@@ -1,8 +1,7 @@
 // pkg
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
-import { registerApplication, start, getAppNames } from "single-spa";
-import apps from "./apps";
+import { start } from "single-spa";
 import App from "./components/App";
 import { AuthProvider, useAuth } from "react-oidc-context";
 import { WebStorageStateStore } from "oidc-client-ts";
