@@ -1,5 +1,5 @@
 {
   "imports": {
-    "@agile-software-engineering/frontend-template": "http://localhost:5173/src/singleSpa.tsx"
+    "@agile-software-engineering/ase-12-lecturer-service": "http://localhost:5173/src/singleSpa.tsx"
   }
 }

@@ -21,7 +21,7 @@ const App = () => {
         Navigations Bar
       </nav>
       <EmbeddedApplication
-        name="@agile-software-engineering/frontend-template"
+        name="@agile-software-engineering/ase-12-lecturer-service"
         sx={{ flexGrow: 1 }}
       />
       <footer
