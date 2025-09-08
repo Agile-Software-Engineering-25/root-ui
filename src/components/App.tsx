@@ -10,7 +10,7 @@ const App = () => {
   }
 
   if(error) {
-    return <div>An error occured: {error.message}</div>
+    return <div>An error occurred: {error.message}</div>
   }
 
   if (isAuthenticated) {
