@@ -2,7 +2,7 @@ name: Build and Deploy to MinIO
 
 on:
   push:
-    branches: ["**"] # Run on push to any branch
+    branches: [ "**" ] # Run on push to any branch
   workflow_dispatch: # Allow manual triggering
 
 jobs:
@@ -21,6 +21,14 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Clear shared components dir
+        run: |
+          rm -rf ./shared-components/*
+          rm -rf ./shared-components/.[!.]* ./shared-components/..?* || true
+
+      - name: Setup Shared Components
+        run: npm run init
 
       - name: Build application
         run: npm run build
