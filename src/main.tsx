@@ -7,7 +7,7 @@ import App from "./components/App";
 import { AuthProvider, useAuth } from "react-oidc-context";
 import { WebStorageStateStore } from "oidc-client-ts";
 
-const oidcAuthority = "http://localhost:8080"
+const oidcAuthority = "http://localhost:8080";
 
 // you can use this for scope config: https://authts.github.io/oidc-client-ts/interfaces/UserManagerSettings.html#scope
 // other config params go here aswell
