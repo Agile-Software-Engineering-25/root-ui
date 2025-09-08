@@ -1,9 +1,8 @@
-import EmbeddedApplication from "./EmbeddedApplication/EmbeddedApplication";
 import {Sheet, Stack, useColorScheme} from "@mui/joy";
 import NavBar from "./NavBar/NavBar.tsx";
 import {useEffect} from "react";
+import RoutingComponent from "./RoutingComponent/RoutingComponent.tsx";
 
-/* dont come at me for this design - its 2 am and I just want to get this working */
 const App = () => {
     const {setMode} = useColorScheme();
     useEffect(() => {
@@ -20,10 +19,7 @@ const App = () => {
             }}>
                 <NavBar/>
             </Stack>
-            <EmbeddedApplication
-                name="@agile-software-engineering/ase-12-lecturer-service"
-                sx={{flexGrow: 1}}
-            />
+            <RoutingComponent/>
             <footer
                 style={{
                     backgroundColor: "lightgray",
