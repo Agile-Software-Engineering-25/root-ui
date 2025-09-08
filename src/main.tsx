@@ -6,9 +6,13 @@ import App from "./components/App";
 import { AuthProvider, useAuth } from "react-oidc-context";
 import { WebStorageStateStore } from "oidc-client-ts";
 
+const oidcAuthority = "http://localhost:8080"
+
+// you can use this for scope config: https://authts.github.io/oidc-client-ts/interfaces/UserManagerSettings.html#scope
+// other config params go here aswell
 const oidcConfig = {
-  authority: "http://localhost:8080/realms/hvs2",
-  client_id: "root_ui",
+  authority: `${oidcAuthority}/realms/sau`,
+  client_id: "default",
   redirect_uri: window.location.origin + '/',
   response_type: 'code',
   post_logout_redirect_uri: window.location.origin,
@@ -17,6 +21,8 @@ const oidcConfig = {
   onSigninCallback: () => {
     window.history.replaceState({}, document.title, window.location.pathname);
   },
+  // openid is always required (?)
+  scope: "openid profile email demo"
 };
 
 // Component to handle application registration AFTER authentication
