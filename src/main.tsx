@@ -7,8 +7,12 @@ import App from "./components/App";
 import { AuthProvider, useAuth } from "react-oidc-context";
 import { WebStorageStateStore } from "oidc-client-ts";
 
+const oidcAuthority = "http://localhost:8080"
+
+// you can use this for scope config: https://authts.github.io/oidc-client-ts/interfaces/UserManagerSettings.html#scope
+// other config params go here aswell
 const oidcConfig = {
-  authority: "http://localhost:8080/realms/hvs2",
+  authority: `${oidcAuthority}/realms/sau`,
   client_id: "root_ui",
   redirect_uri: window.location.origin + '/',
   response_type: 'code',
