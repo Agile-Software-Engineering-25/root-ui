@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "start:build": "vite preview",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "init": "sh ./scripts/prepare.sh",
     "updateSharedComponents": "sh ./scripts/updateSharedComponents.sh"
@@ -17,7 +18,10 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "single-spa": "6.0.1",
-    "single-spa-layout": "^3.0.0"
+    "single-spa-layout": "^3.0.0",
+    "@mui/joy": "^5.0.0-beta.52",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
