@@ -15,13 +15,14 @@
   },
   "dependencies": {
     "@agile-software/shared-components": "file:./shared-components",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/joy": "^5.0.0-beta.52",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router": "^7.8.2",
     "single-spa": "6.0.1",
-    "single-spa-layout": "^3.0.0",
-    "@mui/joy": "^5.0.0-beta.52",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1"
+    "single-spa-layout": "^3.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

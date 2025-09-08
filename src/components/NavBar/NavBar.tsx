@@ -1,4 +1,6 @@
-import {Typography} from "@mui/joy";
+import {Stack, Typography} from "@mui/joy";
+import provadisIcon from "@assets/provadis-icon.svg";
+import {useNavigate} from "react-router";
 
 const navBarElements = [
     {
@@ -20,11 +22,11 @@ const navBarElements = [
 
 
 const NavBar = () => {
-    const redirect = (path: string) => {
-        window.location.href = path;
-    }
+    const navigate = useNavigate();
 
-    return <>
+    return <Stack direction={"row"} component={"nav"} gap={"74px"} alignItems={"center"}>
+        <img src={provadisIcon} alt={"Provadis Logo"} style={{height: "36px", cursor: "pointer"}}
+             onClick={() => navigate("/")}/>
         {navBarElements.map((element) => (
             <Typography
                 color={element.disabled ? "neutral" : undefined} level="body-md" sx={{
@@ -33,12 +35,13 @@ const NavBar = () => {
                     cursor: "pointer"
                 } : undefined)
             }}
-                onClick={() => (!element.disabled ? redirect(element.path) : null)}
+                onClick={() => (!element.disabled ? navigate(element.path) : null)}
+                key={element.path}
             >
                 {element.name}
             </Typography>
         ))}
-    </>
+    </Stack>
 }
 
 export default NavBar;

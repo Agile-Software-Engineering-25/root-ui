@@ -4,7 +4,12 @@ import {createRoot} from "react-dom/client";
 import {registerApplication, start, getAppNames} from "single-spa";
 import apps from "./apps";
 import App from "./components/App";
-import {StyledEngineProvider} from "@mui/joy";
+import {CssBaseline, StyledEngineProvider} from "@mui/joy";
+import {BrowserRouter} from "react-router";
+import {createCustomJoyTheme} from "@agile-software/shared-components";
+import {CssVarsProvider as JoyCssVarsProvider} from '@mui/joy';
+
+const joyTheme = createCustomJoyTheme();
 
 apps.forEach((app) => {
     registerApplication({
@@ -30,7 +35,12 @@ start();
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <StyledEngineProvider>
-            <App/>
+            <BrowserRouter>
+                <JoyCssVarsProvider theme={joyTheme}>
+                    <CssBaseline/>
+                    <App/>
+                </JoyCssVarsProvider>
+            </BrowserRouter>
         </StyledEngineProvider>
     </StrictMode>
 );
