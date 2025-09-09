@@ -13,7 +13,7 @@ const oidcAuthority = "http://localhost:8080";
 // other config params go here aswell
 const oidcConfig = {
   authority: `${oidcAuthority}/realms/sau`,
-  client_id: "root_ui",
+  client_id: "default",
   redirect_uri: window.location.origin + '/',
   response_type: 'code',
   post_logout_redirect_uri: window.location.origin,
