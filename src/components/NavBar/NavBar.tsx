@@ -1,6 +1,6 @@
-import { Stack, Typography } from "@mui/joy";
+import { Link as JoyLink, Stack } from "@mui/joy";
 import provadisIcon from "@assets/provadis-icon.svg";
-import { useNavigate } from "react-router";
+import { Link as ReactRouterLink, useNavigate } from "react-router";
 
 const navBarElements = [
   {
@@ -42,21 +42,24 @@ const NavBar = () => {
         onClick={() => navigate("/")}
       />
       {navBarElements.map((element) => (
-        <Typography
+        <JoyLink
+          component={ReactRouterLink}
           level="body-md"
           sx={{
             fontSize: "16px",
             userSelect: "none",
+            color: "rgb(50, 56, 62)",
             ":hover": {
               color: "primary.500",
               cursor: "pointer",
+              textDecoration: "none",
             },
           }}
-          onClick={() => navigate(element.path)}
+          to={element.path}
           key={element.path}
         >
           {element.name}
-        </Typography>
+        </JoyLink>
       ))}
     </Stack>
   );
