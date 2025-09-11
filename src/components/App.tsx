@@ -1,5 +1,6 @@
 import { useAuth, useAutoSignin } from "react-oidc-context";
 import Skeleton from "./Skeleton";
+import { setGlobalUser } from "../hooks/useUser";
 
 const App = () => {
   const auth = useAuth();
@@ -21,6 +22,8 @@ const App = () => {
         <button onClick={() => void auth.signinRedirect()}>Try again</button>
       </div>;
     }
+
+    setGlobalUser(auth.user ?? null);
 
     return <Skeleton />;
   }
