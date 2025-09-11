@@ -4,10 +4,12 @@ import AboutPage from "../../pages/AboutPage/AboutPage.tsx";
 import ExamPage from "../../pages/ExamPage/ExamPage.tsx";
 import RootPage from "../../pages/RootPage/RootPage.tsx";
 import RoomBookingService from "../../pages/RoomBookingPage/RoomBookingPage.tsx";
+import BaseDataPage from "../../pages/BaseDataPage/BaseDataPage.tsx";
 
 const paths = [
   { path: "/exams", component: <ExamPage /> },
   { path: "/room-booking", component: <RoomBookingService /> },
+  { path: "/document-management", component: <BaseDataPage /> },
   { path: "/about", component: <AboutPage /> },
   { path: "/", component: <RootPage /> },
 ];

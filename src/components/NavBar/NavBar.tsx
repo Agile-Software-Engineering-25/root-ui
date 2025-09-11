@@ -19,6 +19,10 @@ const navBarElements = [
     name: "Raum Buchung",
     path: "/room-booking/rooms",
   },
+  {
+    name: "Document Management",
+    path: "/document-management/document-management",
+  },
 ];
 
 const NavBar = () => {

@@ -8,4 +8,8 @@ export default [
     name: "@agile-software-engineering/ase-01-room-booking-service",
     basename: "/room-booking",
   },
+  {
+    name: "@agile-software-engineering/ase-07-base-data-service",
+    basename: "/document-management",
+  },
 ];
