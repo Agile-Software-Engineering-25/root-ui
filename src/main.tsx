@@ -7,13 +7,13 @@ import App from "./components/App";
 import { AuthProvider, useAuth } from "react-oidc-context";
 import { WebStorageStateStore } from "oidc-client-ts";
 
-const oidcAuthority = "http://localhost:8080";
+const oidcAuthority = "https://keycloak.sau-portal.de";
 
 // you can use this for scope config: https://authts.github.io/oidc-client-ts/interfaces/UserManagerSettings.html#scope
 // other config params go here aswell
 const oidcConfig = {
   authority: `${oidcAuthority}/realms/sau`,
-  client_id: "default",
+  client_id: "root-ui",
   redirect_uri: window.location.origin + '/',
   response_type: 'code',
   post_logout_redirect_uri: window.location.origin,
