@@ -1,15 +1,13 @@
-import {Sheet, Stack, useColorScheme} from "@mui/joy";
-import { useAuth, useAutoSignin } from "react-oidc-context";
-import NavBar from "./NavBar/NavBar.tsx";
+import { useColorScheme } from "@mui/joy";
 import { useEffect, useRef } from "react";
-import Skeleton from "./Skeleton";
-import RoutingComponent from "./RoutingComponent/RoutingComponent.tsx";
+import { useAuth, useAutoSignin } from "react-oidc-context";
 import { setGlobalUser } from "../hooks/useUser";
+import Skeleton from "./Skeleton";
 
 const App = () => {
   const auth = useAuth();
-  const {setMode} = useColorScheme();
-  const { isLoading, isAuthenticated, error } = useAutoSignin({signinMethod: "signinRedirect"});
+  const { setMode } = useColorScheme();
+  const { isLoading, isAuthenticated, error } = useAutoSignin({ signinMethod: "signinRedirect" });
 
   // Keep a stable reference of last token to avoid redundant global updates
   const lastTokenRef = useRef<string | undefined>(undefined);
@@ -32,9 +30,9 @@ const App = () => {
       lastTokenRef.current = token;
     }
   }, [isAuthenticated, auth.user?.access_token]);
-   
+
   useEffect(() => {
-      setMode("light");
+    setMode("light");
   }, [setMode]);
 
 
@@ -42,7 +40,7 @@ const App = () => {
     return <div>Signing you in/out...</div>;
   }
 
-  if(error) {
+  if (error) {
     return <div>An error occurred: {error.message}</div>
   }
 
@@ -67,26 +65,5 @@ const App = () => {
 
   return <Skeleton />;
 };
-    /*  <Sheet sx={{display: "flex", minHeight: "100vh", flexDirection: "column"}}>
-            <Stack id={"navbar"} direction={"row"} alignItems={"center"} spacing={1} sx={{
-                height: "68px",
-                px: "25px",
-                boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                boxSizing: "border-box",
-            }}>
-                <NavBar/>
-            </Stack>
-            <RoutingComponent/>
-            <footer
-                style={{
-                    backgroundColor: "lightgray",
-                    padding: "1rem",
-                    width: "calc(100% - 2rem)",
-                }}
-            >
-                Footer
-            </footer>
-        </Sheet>
-*/
 
 export default App;

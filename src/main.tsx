@@ -1,13 +1,19 @@
-// pkg
+import {
+  createCustomJoyTheme,
+} from '@agile-software/shared-components';
+import { CssBaseline, CssVarsProvider, StyledEngineProvider } from "@mui/joy";
+import { WebStorageStateStore } from "oidc-client-ts";
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
-import { registerApplication, start, getAppNames } from "single-spa";
+import { AuthProvider, useAuth } from "react-oidc-context";
+import { BrowserRouter } from "react-router";
+import { getAppNames, registerApplication, start } from "single-spa";
 import apps from "./apps";
 import App from "./components/App";
-import { AuthProvider, useAuth } from "react-oidc-context";
-import { WebStorageStateStore } from "oidc-client-ts";
 
 const oidcAuthority = "https://keycloak.sau-portal.de";
+
+const joyTheme = createCustomJoyTheme()
 
 // you can use this for scope config: https://authts.github.io/oidc-client-ts/interfaces/UserManagerSettings.html#scope
 // other config params go here aswell
@@ -50,7 +56,7 @@ function AppRegistration() {
         // disable the single spa import map override panel for built environments (can still be accessed using the browser extension)
         localStorage.setItem("imo-ui", "false");
       }
-      
+
       start();
     }
   }, [auth.isAuthenticated, auth.user]);
@@ -59,17 +65,16 @@ function AppRegistration() {
 }
 
 createRoot(document.getElementById("root")!).render(
-    <StrictMode>
-        <StyledEngineProvider>
-            <BrowserRouter>
-                <JoyCssVarsProvider theme={joyTheme}>
-                    <CssBaseline/>
-    <AuthProvider {...oidcConfig}>
-      <AppRegistration />
-    </AuthProvider>
-      
-                </JoyCssVarsProvider>
-            </BrowserRouter>
-        </StyledEngineProvider>
-    </StrictMode>
+  <StrictMode>
+    <StyledEngineProvider>
+      <BrowserRouter>
+        <CssVarsProvider theme={joyTheme}>
+          <CssBaseline />
+          <AuthProvider {...oidcConfig}>
+            <AppRegistration />
+          </AuthProvider>
+        </CssVarsProvider>
+      </BrowserRouter>
+    </StyledEngineProvider>
+  </StrictMode>
 );
