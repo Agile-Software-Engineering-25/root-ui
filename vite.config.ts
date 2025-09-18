@@ -10,7 +10,7 @@ export default defineConfig(({command}) => ({
     server: {
         port: PORT,
     },
-    base: command == "serve" ? "" : "/api/root-ui/",
+    base: command === "serve" ? "" : "/api/root-ui/",
     preview: {
         port: PORT,
     },
