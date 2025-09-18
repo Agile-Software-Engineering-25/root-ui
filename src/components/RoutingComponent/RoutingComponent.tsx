@@ -17,7 +17,11 @@ const paths = [
 const RoutingComponent = () => {
   const { pathname } = useLocation();
 
-  const activeElement = paths.find((path) => pathname.startsWith(path.path));
+  const activeElement = paths.find((path) =>
+    path.path === '/'
+      ? pathname === '/'
+      : pathname === path.path || pathname.startsWith(path.path + '/')
+  );
 
   return (
     <>
