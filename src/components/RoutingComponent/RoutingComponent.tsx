@@ -28,7 +28,7 @@ const RoutingComponent = () => {
       {paths.map((path) => (
         <Box
           sx={{
-            display: activeElement?.path == path.path ? "flex" : "none",
+            display: activeElement?.path === path.path ? "flex" : "none",
             flexGrow: 1,
           }}
           key={path.path}
