@@ -1,36 +1,62 @@
 // pkg
-import {StrictMode} from "react";
-import {createRoot} from "react-dom/client";
-import {registerApplication, start, getAppNames} from "single-spa";
+import { StrictMode, useEffect } from "react";
+import { createRoot } from "react-dom/client";
+import { registerApplication, start, getAppNames } from "single-spa";
 import apps from "./apps";
 import App from "./components/App";
-import {CssBaseline, StyledEngineProvider} from "@mui/joy";
-import {BrowserRouter} from "react-router";
-import {createCustomJoyTheme} from "@agile-software/shared-components";
-import {CssVarsProvider as JoyCssVarsProvider} from '@mui/joy';
+import { AuthProvider, useAuth } from "react-oidc-context";
+import { WebStorageStateStore } from "oidc-client-ts";
 
-const joyTheme = createCustomJoyTheme();
+const oidcAuthority = "https://keycloak.sau-portal.de";
 
-apps.forEach((app) => {
-    registerApplication({
-        name: app.name,
-        activeWhen: app.basename,
-        customProps: {
+// you can use this for scope config: https://authts.github.io/oidc-client-ts/interfaces/UserManagerSettings.html#scope
+// other config params go here aswell
+const oidcConfig = {
+  authority: `${oidcAuthority}/realms/sau`,
+  client_id: "root-ui",
+  redirect_uri: window.location.origin + '/',
+  response_type: 'code',
+  post_logout_redirect_uri: window.location.origin,
+  userStore: new WebStorageStateStore({ store: window.localStorage }),
+  stateStore: new WebStorageStateStore({ store: window.localStorage }),
+  onSigninCallback: () => {
+    window.history.replaceState({}, document.title, window.location.pathname);
+  },
+};
+
+// Component to handle application registration AFTER authentication
+function AppRegistration() {
+  const auth = useAuth();
+
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      apps.forEach((app) => {
+        registerApplication({
+          name: app.name,
+          activeWhen: app.basename,
+          customProps: {
             basename: app.basename,
-        },
-        app: () => import(/* @vite-ignore */ app.name),
-    });
-});
+            user: auth.user, // User object passed as prop containing all auth information
+          },
+          app: () => import(/* @vite-ignore */ app.name),
+        });
+      });
 
-if (process.env.NODE_ENV === "development") {
-    console.log("APPLICATIONS", getAppNames());
-    // enable the single spa import map override panel in dev mode
-    localStorage.setItem("imo-ui", "true");
-} else {
-    // disable the single spa import map override panel for built environments (can still be accessed using the browser extension)
-    localStorage.setItem("imo-ui", "false");
+      if (process.env.NODE_ENV === "development") {
+        console.log("APPLICATIONS", getAppNames());
+        // enable the single spa import map override panel in dev mode
+        localStorage.setItem("imo-ui", "true");
+      } else {
+        // disable the single spa import map override panel for built environments (can still be accessed using the browser extension)
+        localStorage.setItem("imo-ui", "false");
+      }
+      
+      start();
+    }
+  }, [auth.isAuthenticated, auth.user]);
+
+  return <App />;
 }
-start();
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -38,7 +64,10 @@ createRoot(document.getElementById("root")!).render(
             <BrowserRouter>
                 <JoyCssVarsProvider theme={joyTheme}>
                     <CssBaseline/>
-                    <App/>
+    <AuthProvider {...oidcConfig}>
+      <AppRegistration />
+    </AuthProvider>
+      
                 </JoyCssVarsProvider>
             </BrowserRouter>
         </StyledEngineProvider>
