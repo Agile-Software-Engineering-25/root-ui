@@ -4,6 +4,7 @@ import {
 import { CssBaseline, CssVarsProvider, StyledEngineProvider } from "@mui/joy";
 import { SnackbarProvider } from 'notistack';
 import { WebStorageStateStore } from "oidc-client-ts";
+import type { User } from "oidc-client-ts";
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { AuthProvider, useAuth } from "react-oidc-context";
@@ -33,15 +34,21 @@ const oidcConfig = {
 
 // Keep single-spa lifecycle side-effects idempotent across re-renders and HMR
 // Store flags on window so they survive module reloads in dev
-const rootSpaState =
-  (window as any).__rootSpaState ??= {
+type RootSpaState = {
+  appsHaveBeenRegistered: boolean;
+  singleSpaStarted: boolean;
+};
+
+const rootSpaState: RootSpaState =
+  (window.__rootSpaState ??= {
     appsHaveBeenRegistered: false,
     singleSpaStarted: false,
-  };
+  });
 
 declare global {
   interface Window {
-    __rootAuthUser?: any;
+    __rootAuthUser?: User;
+    __rootSpaState?: RootSpaState;
   }
 }
 
@@ -69,7 +76,7 @@ function AppRegistration() {
           customProps: {
             basename: app.basename,
             // Backward-compatibility: provide a snapshot user for legacy MFEs
-            user: (window as any).__rootAuthUser,
+            user: window.__rootAuthUser,
             // Accessors so children can always fetch the latest auth data without re-registering
             getUser: () => window.__rootAuthUser,
           },
