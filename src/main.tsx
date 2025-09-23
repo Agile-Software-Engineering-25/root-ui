@@ -31,19 +31,45 @@ const oidcConfig = {
   },
 };
 
+// Keep single-spa lifecycle side-effects idempotent across re-renders and HMR
+// Store flags on window so they survive module reloads in dev
+const rootSpaState =
+  (window as any).__rootSpaState ??= {
+    appsHaveBeenRegistered: false,
+    singleSpaStarted: false,
+  };
+
+declare global {
+  interface Window {
+    __rootAuthUser?: any;
+  }
+}
+
 // Component to handle application registration AFTER authentication
 function AppRegistration() {
   const auth = useAuth();
 
+  // Keep global auth reference up to date for microfrontends without re-registering
   useEffect(() => {
-    if (auth.isAuthenticated) {
+    window.__rootAuthUser = auth.user ?? undefined;
+    try {
+      window.dispatchEvent(new CustomEvent("auth:user-changed", { detail: auth.user }));
+    } catch {
+      // no-op if CustomEvent not supported in the environment
+    }
+  }, [auth.user]);
+
+  // Register single-spa apps only once, after authentication
+  useEffect(() => {
+    if (auth.isAuthenticated && !rootSpaState.appsHaveBeenRegistered) {
       apps.forEach((app) => {
         registerApplication({
           name: app.name,
           activeWhen: app.basename,
           customProps: {
             basename: app.basename,
-            user: auth.user, // User object passed as prop containing all auth information
+            // Accessors so children can always fetch the latest auth data without re-registering
+            getUser: () => window.__rootAuthUser,
           },
           app: () => import(/* @vite-ignore */ app.name),
         });
@@ -58,9 +84,14 @@ function AppRegistration() {
         localStorage.setItem("imo-ui", "false");
       }
 
-      start();
+      if (!rootSpaState.singleSpaStarted) {
+        start();
+        rootSpaState.singleSpaStarted = true;
+      }
+
+      rootSpaState.appsHaveBeenRegistered = true;
     }
-  }, [auth.isAuthenticated, auth.user]);
+  }, [auth.isAuthenticated]);
 
   return <App />;
 }
