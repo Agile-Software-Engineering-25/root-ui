@@ -1,5 +1,6 @@
-import { Button, IconButton, Link as JoyLink, Snackbar, Stack } from "@mui/joy";
+import { Button, IconButton, Link as JoyLink, Stack } from "@mui/joy";
 import { Person } from "@mui/icons-material";
+import { enqueueSnackbar } from 'notistack';
 import provadisIcon from "@assets/provadis-icon.svg";
 import { Link as ReactRouterLink, useNavigate } from "react-router";
 import { useAuth } from "react-oidc-context";
@@ -36,7 +37,6 @@ const NavBar = () => {
   const user = useUser();
 
   const [openUserModal, setOpenUserModal] = useState(false);
-  const [showCopyFeedback, setShowCopyFeedback] = useState(false);
 
   return (
     <Stack
@@ -105,13 +105,18 @@ const NavBar = () => {
           </Stack>
         </Stack>
         <Stack direction={"row"} gap={2}>
-          <Button onClick={() => {auth.signoutRedirect().catch((e) => console.error(e))}}>Logout</Button>
+          <Button onClick={() => {
+            auth.signoutRedirect().catch((e) => {
+              console.error(e);
+              enqueueSnackbar("Couldn't logout. Please try again.", { variant: 'error' });
+            });
+          }}>Logout</Button>
           <Button 
             onClick={() => {
               const token = user.getAccessToken();
               if (token) {
                 navigator.clipboard.writeText(token)
-                  .then(() => setShowCopyFeedback(true))
+                  .then(() => enqueueSnackbar("Token copied to clipboard!", { variant: 'success' }))
                   .catch((e) => console.error(e));
               }
             }}
@@ -121,14 +126,6 @@ const NavBar = () => {
           </Button>
         </Stack>
       </Modal>
-      <Snackbar
-        open={showCopyFeedback}
-        onClose={() => setShowCopyFeedback(false)}
-        autoHideDuration={3000}
-        color="success"
-      >
-        Token copied to clipboard!
-      </Snackbar>
     </Stack>
   );
 };

@@ -2,6 +2,7 @@ import {
   createCustomJoyTheme,
 } from '@agile-software/shared-components';
 import { CssBaseline, CssVarsProvider, StyledEngineProvider } from "@mui/joy";
+import { SnackbarProvider } from 'notistack';
 import { WebStorageStateStore } from "oidc-client-ts";
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
@@ -70,9 +71,11 @@ createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
         <CssVarsProvider theme={joyTheme}>
           <CssBaseline />
-          <AuthProvider {...oidcConfig}>
-            <AppRegistration />
-          </AuthProvider>
+          <SnackbarProvider maxSnack={3}>
+            <AuthProvider {...oidcConfig}>
+              <AppRegistration />
+            </AuthProvider>
+          </SnackbarProvider>
         </CssVarsProvider>
       </BrowserRouter>
     </StyledEngineProvider>
