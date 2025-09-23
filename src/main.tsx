@@ -68,6 +68,8 @@ function AppRegistration() {
           activeWhen: app.basename,
           customProps: {
             basename: app.basename,
+            // Backward-compatibility: provide a snapshot user for legacy MFEs
+            user: (window as any).__rootAuthUser,
             // Accessors so children can always fetch the latest auth data without re-registering
             getUser: () => window.__rootAuthUser,
           },
