@@ -1,6 +1,7 @@
 import { Link as JoyLink, Stack } from "@mui/joy";
 import provadisIcon from "@assets/provadis-icon.svg";
 import { Link as ReactRouterLink, useNavigate } from "react-router";
+import { useAuth } from "react-oidc-context";
 
 const navBarElements = [
   {
@@ -27,6 +28,7 @@ const navBarElements = [
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const auth = useAuth();
 
   return (
     <Stack
@@ -66,7 +68,7 @@ const NavBar = () => {
         ))}
       </Stack>
       <button
-        onClick={() => console.log("hello world")}
+        onClick={() => {auth.signoutRedirect().catch((e) => console.error(e))}}
         style={{
           padding: "4px 8px",
           border: "1px solid #ccc",
