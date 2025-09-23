@@ -1,4 +1,5 @@
-import { Link as JoyLink, Stack } from "@mui/joy";
+import { IconButton, Link as JoyLink, Stack } from "@mui/joy";
+import { Person } from "@mui/icons-material";
 import provadisIcon from "@assets/provadis-icon.svg";
 import { Link as ReactRouterLink, useNavigate } from "react-router";
 import { useAuth } from "react-oidc-context";
@@ -67,18 +68,13 @@ const NavBar = () => {
           </JoyLink>
         ))}
       </Stack>
-      <button
+      <IconButton
         onClick={() => {auth.signoutRedirect().catch((e) => console.error(e))}}
-        style={{
-          padding: "4px 8px",
-          border: "1px solid #ccc",
-          background: "transparent",
-          cursor: "pointer",
-          fontSize: "12px",
-        }}
-      >
-        Logout
-      </button>
+        key={'logout-button'}
+        color={'primary'}
+        variant={'plain'}>
+        <Person />
+      </IconButton>
     </Stack>
   );
 };
