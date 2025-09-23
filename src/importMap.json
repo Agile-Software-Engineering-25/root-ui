@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "@agile-software-engineering/ase-12-lecturer-service": "https://sau-portal.de/api/ase-12/singleSpa.js",
+    "@agile-software-engineering/ase-07-base-data-service": "https://sau-portal.de/api/ase-07/singleSpa.js",
+    "@agile-software-engineering/ase-01-room-booking-service": "https://sau-portal.de/api/ase-01/singleSpa.js"
+  }
+}

@@ -1,11 +1,13 @@
-import { useAuth, useAutoSignin } from "react-oidc-context";
+import { useColorScheme } from "@mui/joy";
 import { useEffect, useRef } from "react";
-import Skeleton from "./Skeleton";
+import { useAuth, useAutoSignin } from "react-oidc-context";
 import { setGlobalUser } from "../hooks/useUser";
+import Skeleton from "./Skeleton";
 
 const App = () => {
   const auth = useAuth();
-  const { isLoading, isAuthenticated, error } = useAutoSignin({signinMethod: "signinRedirect"});
+  const { setMode } = useColorScheme();
+  const { isLoading, isAuthenticated, error } = useAutoSignin({ signinMethod: "signinRedirect" });
 
   // Keep a stable reference of last token to avoid redundant global updates
   const lastTokenRef = useRef<string | undefined>(undefined);
@@ -29,11 +31,16 @@ const App = () => {
     }
   }, [isAuthenticated, auth.user?.access_token]);
 
+  useEffect(() => {
+    setMode("light");
+  }, [setMode]);
+
+
   if (isLoading) {
     return <div>Signing you in/out...</div>;
   }
 
-  if(error) {
+  if (error) {
     return <div>An error occurred: {error.message}</div>
   }
 
