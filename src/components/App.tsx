@@ -1,4 +1,4 @@
-import { Button, useColorScheme } from "@mui/joy";
+import { Button, Typography, useColorScheme } from "@mui/joy";
 import { useEffect, useRef } from "react";
 import { useAuth, useAutoSignin } from "react-oidc-context";
 import { setGlobalUser } from "../hooks/useUser";
@@ -38,12 +38,12 @@ const App = () => {
 
 
   if (isLoading) {
-    return <StatusView showSpinner message={<p>Signing you in/out...</p>} />;
+    return <StatusView showSpinner message={<Typography>Signing you in/out...</Typography>} />;
   }
 
   if (error) {
     return (
-      <StatusView title="An error occurred" message={<p>{error.message || "Unknown error"}</p>}>
+      <StatusView title="An error occurred" message={<Typography>{error.message || "Unknown error"}</Typography>}>
         <Button onClick={() => void auth.signinRedirect()}>Sign in again</Button>
       </StatusView>
     );
@@ -51,7 +51,7 @@ const App = () => {
 
   if (!isAuthenticated) {
     return (
-      <StatusView title="Not authenticated." message={<p>You need to log in to access this application.</p>}>
+      <StatusView title="Not authenticated." message={<Typography>You need to log in to access this application.</Typography>}>
         <Button onClick={() => void auth.signinRedirect()}>Sign in</Button>
       </StatusView>
     );
@@ -60,7 +60,7 @@ const App = () => {
   const token = auth.user?.access_token;
   if (!token) {
     return (
-      <StatusView title="Authenticated but access token not available" message={<p>You need to log in to access this application.</p>}>
+      <StatusView title="Authenticated but access token not available" message={<Typography>You need to log in to access this application.</Typography>}>
         <Button onClick={() => void auth.signinRedirect()}>Sign in</Button>
       </StatusView>
     );
