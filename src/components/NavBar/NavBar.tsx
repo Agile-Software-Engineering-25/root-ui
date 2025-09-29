@@ -1,6 +1,6 @@
 import { Button, IconButton, Link as JoyLink, Stack } from "@mui/joy";
 import { Person } from "@mui/icons-material";
-import { enqueueSnackbar } from 'notistack';
+import { enqueueSnackbar } from "notistack";
 import provadisIcon from "@assets/provadis-icon.svg";
 import { Link as ReactRouterLink, useNavigate } from "react-router";
 import { useAuth } from "react-oidc-context";
@@ -28,6 +28,10 @@ const navBarElements = [
   {
     name: "Document Management",
     path: "/document-management/document-management",
+  },
+  {
+    name: "ExaGrad Students",
+    path: "/exagrad-students",
   },
 ];
 
@@ -76,12 +80,13 @@ const NavBar = () => {
         ))}
       </Stack>
 
-      { /* User data and logout modal */ }
+      {/* User data and logout modal */}
       <IconButton
         onClick={() => setOpenUserModal(true)}
-        key={'logout-button'}
-        color={'primary'}
-        variant={'plain'}>
+        key={"logout-button"}
+        color={"primary"}
+        variant={"plain"}
+      >
         <Person />
       </IconButton>
       <Modal
@@ -92,7 +97,9 @@ const NavBar = () => {
       >
         <Stack spacing={1} sx={{ marginBottom: 2 }}>
           <Stack direction="row" spacing={1}>
-            <span style={{ fontWeight: "bold", minWidth: "80px" }}>User-ID:</span>
+            <span style={{ fontWeight: "bold", minWidth: "80px" }}>
+              User-ID:
+            </span>
             <span>{user.getUserId()}</span>
           </Stack>
           <Stack direction="row" spacing={1}>
@@ -100,23 +107,36 @@ const NavBar = () => {
             <span>{user.getFullName()}</span>
           </Stack>
           <Stack direction="row" spacing={1}>
-            <span style={{ fontWeight: "bold", minWidth: "80px" }}>E-Mail:</span>
+            <span style={{ fontWeight: "bold", minWidth: "80px" }}>
+              E-Mail:
+            </span>
             <span>{user.getEmail()}</span>
           </Stack>
         </Stack>
         <Stack direction={"row"} gap={2}>
-          <Button onClick={() => {
-            auth.signoutRedirect().catch((e) => {
-              console.error(e);
-              enqueueSnackbar("Couldn't logout. Please try again.", { variant: 'error' });
-            });
-          }}>Logout</Button>
-          <Button 
+          <Button
+            onClick={() => {
+              auth.signoutRedirect().catch((e) => {
+                console.error(e);
+                enqueueSnackbar("Couldn't logout. Please try again.", {
+                  variant: "error",
+                });
+              });
+            }}
+          >
+            Logout
+          </Button>
+          <Button
             onClick={() => {
               const token = user.getAccessToken();
               if (token) {
-                navigator.clipboard.writeText(token)
-                  .then(() => enqueueSnackbar("Token copied to clipboard!", { variant: 'success' }))
+                navigator.clipboard
+                  .writeText(token)
+                  .then(() =>
+                    enqueueSnackbar("Token copied to clipboard!", {
+                      variant: "success",
+                    })
+                  )
                   .catch((e) => console.error(e));
               }
             }}
