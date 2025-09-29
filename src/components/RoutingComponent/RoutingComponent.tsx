@@ -5,11 +5,13 @@ import ExamPage from "../../pages/ExamPage/ExamPage.tsx";
 import RootPage from "../../pages/RootPage/RootPage.tsx";
 import RoomBookingService from "../../pages/RoomBookingPage/RoomBookingPage.tsx";
 import BaseDataPage from "../../pages/BaseDataPage/BaseDataPage.tsx";
+import ExaGradStudentPage from "../../pages/ExaGradStudentPage/ExaGradStudentPage.tsx";
 
 const paths = [
   { path: "/exams", component: <ExamPage /> },
   { path: "/room-booking", component: <RoomBookingService /> },
   { path: "/document-management", component: <BaseDataPage /> },
+  { path: "/exagrad-students", component: <ExaGradStudentPage /> },
   { path: "/about", component: <AboutPage /> },
   { path: "/", component: <RootPage /> },
 ];
@@ -18,9 +20,9 @@ const RoutingComponent = () => {
   const { pathname } = useLocation();
 
   const activeElement = paths.find((path) =>
-    path.path === '/'
-      ? pathname === '/'
-      : pathname === path.path || pathname.startsWith(path.path + '/')
+    path.path === "/"
+      ? pathname === "/"
+      : pathname === path.path || pathname.startsWith(path.path + "/")
   );
 
   return (
