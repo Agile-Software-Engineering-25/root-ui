@@ -144,6 +144,15 @@ const NavBar = () => {
           >
             Copy Token
           </Button>
+          <Button
+            onClick={() => {
+              const keycloak_account_url = auth.settings.authority + "/account";
+              window.location.href = keycloak_account_url;
+            }}
+            variant="outlined"
+          >
+            Settings
+          </Button>
         </Stack>
       </Modal>
     </Stack>
