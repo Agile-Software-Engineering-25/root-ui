@@ -2,6 +2,7 @@
   "imports": {
     "@agile-software-engineering/ase-12-lecturer-service": "http://localhost:5173/src/singleSpa.tsx",
     "@agile-software-engineering/ase-07-base-data-service": "http://localhost:5173/src/singleSpa.tsx",
+    "@agile-software-engineering/ase-13-student-service": "http://localhost:5173/src/singleSpa.tsx",
     "@agile-software-engineering/ase-01-room-booking-service": "http://localhost:5173/src/singleSpa.tsx"
   }
 }
