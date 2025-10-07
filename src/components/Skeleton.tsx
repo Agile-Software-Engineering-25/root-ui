@@ -1,5 +1,6 @@
 import { Sheet, Stack } from "@mui/joy";
-import NavBar from "./NavBar/NavBar";
+import Navigation from "./Navigation/Navigation";
+import Footer from "./Footer/Footer";
 import RoutingComponent from "./RoutingComponent/RoutingComponent";
 
 const Skeleton = () => {
@@ -11,18 +12,10 @@ const Skeleton = () => {
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
         boxSizing: "border-box",
       }}>
-        <NavBar />
+        <Navigation />
       </Stack>
       <RoutingComponent />
-      <footer
-        style={{
-          backgroundColor: "lightgray",
-          padding: "1rem",
-          width: "calc(100% - 2rem)",
-        }}
-      >
-        Footer
-      </footer>
+        <Footer />
     </Sheet>
   );
 };
