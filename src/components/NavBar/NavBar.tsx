@@ -1,6 +1,7 @@
 import { Button, IconButton, Link as JoyLink, Stack } from "@mui/joy";
 import { Person } from "@mui/icons-material";
-import { enqueueSnackbar } from "notistack";
+import { Notifications } from "@mui/icons-material";
+import { enqueueSnackbar } from 'notistack';
 import provadisIcon from "@assets/provadis-icon.svg";
 import { Link as ReactRouterLink, useNavigate } from "react-router";
 import { useAuth } from "react-oidc-context";
@@ -10,48 +11,59 @@ import useUser from "../../hooks/useUser";
 
 const navBarElements = [
   {
-    name: "Home",
-    path: "/",
-  },
-  {
-    name: "About",
-    path: "/about",
-  },
-  {
-    name: "Prüfungen",
+    name: "Prüfungen und Noten",
     path: "/exams",
+    children: [
+      {name: "Zeugnisse", path: "/exams/certificate"},
+      {name: "Prüfungen", path: "/exams/exam"}
+    ]
   },
   {
-    name: "Raum Buchung",
-    path: "/room-booking/rooms",
+    name: "Dokumentenmanagement",
+    path: "/document-management",
+    children: [
+      {name: "Newsfeed", path: "/document-management/newsfeed"},
+      {name: "Dokumente", path: "/document-management/documents"},
+      {name: "Anträge", path: "/document-management/requests"}
+    ]
   },
   {
-    name: "Document Management",
-    path: "/document-management/document-management",
+    name: "Stammdaten",
+    path: "/data",
+    children: [
+      {name: "Personen", path: "/data/person"},
+      {name: "Studieninhalt", path: "data/study"}
+    ]
   },
   {
-    name: "ExaGrad Students",
-    path: "/exagrad-students",
+    name: "Parkplatzanalyse",
+    path: "/parkingspot",
   },
+  {
+    name: "Stundenplan",
+    path: "/timetable",
+  },
+  {
+    name: "Raumressourcen",
+    path: "/room-booking/rooms"
+  }
 ];
 
-const NavBar = () => {
+const NavBar = ({ setActiveMenu }) => {
   const navigate = useNavigate();
   const auth = useAuth();
   const user = useUser();
-
   const [openUserModal, setOpenUserModal] = useState(false);
 
   return (
     <Stack
-      direction={"row"}
-      component={"nav"}
-      gap={"74px"}
-      alignItems={"center"}
-      justifyContent={"space-between"}
-      width={"100%"}
+      direction="row"
+      component="nav"
+      alignItems="center"
+      justifyContent="space-between"
+      width="100%"
     >
-      <Stack direction={"row"} gap={"74px"} alignItems={"center"}>
+      <Stack direction={"row"} spacing={"50px"} alignItems={"center"}>
         <img
           src={provadisIcon}
           alt={"Provadis Logo"}
@@ -61,9 +73,9 @@ const NavBar = () => {
         {navBarElements.map((element) => (
           <JoyLink
             component={ReactRouterLink}
-            level="body-md"
+            level="body-sm"
             sx={{
-              fontSize: "16px",
+              fontSize: "13px",
               userSelect: "none",
               color: "rgb(50, 56, 62)",
               ":hover": {
@@ -74,19 +86,28 @@ const NavBar = () => {
             }}
             to={element.path}
             key={element.path}
+            onMouseEnter={() => element.children && setActiveMenu(element.name)}
           >
             {element.name}
           </JoyLink>
         ))}
       </Stack>
+      
+      <Stack direction="row" spacing={3} alignItems="center">
+        { /* Notice bell modal */ }
+      <IconButton
+        key={'bell-button'}
+        color={'primary'}
+        variant={'plain'}>
+        <Notifications />
+      </IconButton>
 
-      {/* User data and logout modal */}
+      { /* User data and logout modal */ }
       <IconButton
         onClick={() => setOpenUserModal(true)}
-        key={"logout-button"}
-        color={"primary"}
-        variant={"plain"}
-      >
+        key={'logout-button'}
+        color={'primary'}
+        variant={'plain'}>
         <Person />
       </IconButton>
       <Modal
@@ -97,9 +118,7 @@ const NavBar = () => {
       >
         <Stack spacing={1} sx={{ marginBottom: 2 }}>
           <Stack direction="row" spacing={1}>
-            <span style={{ fontWeight: "bold", minWidth: "80px" }}>
-              User-ID:
-            </span>
+            <span style={{ fontWeight: "bold", minWidth: "80px" }}>User-ID:</span>
             <span>{user.getUserId()}</span>
           </Stack>
           <Stack direction="row" spacing={1}>
@@ -107,36 +126,23 @@ const NavBar = () => {
             <span>{user.getFullName()}</span>
           </Stack>
           <Stack direction="row" spacing={1}>
-            <span style={{ fontWeight: "bold", minWidth: "80px" }}>
-              E-Mail:
-            </span>
+            <span style={{ fontWeight: "bold", minWidth: "80px" }}>E-Mail:</span>
             <span>{user.getEmail()}</span>
           </Stack>
         </Stack>
         <Stack direction={"row"} gap={2}>
-          <Button
-            onClick={() => {
-              auth.signoutRedirect().catch((e) => {
-                console.error(e);
-                enqueueSnackbar("Couldn't logout. Please try again.", {
-                  variant: "error",
-                });
-              });
-            }}
-          >
-            Logout
-          </Button>
-          <Button
+          <Button onClick={() => {
+            auth.signoutRedirect().catch((e) => {
+              console.error(e);
+              enqueueSnackbar("Couldn't logout. Please try again.", { variant: 'error' });
+            });
+          }}>Logout</Button>
+          <Button 
             onClick={() => {
               const token = user.getAccessToken();
               if (token) {
-                navigator.clipboard
-                  .writeText(token)
-                  .then(() =>
-                    enqueueSnackbar("Token copied to clipboard!", {
-                      variant: "success",
-                    })
-                  )
+                navigator.clipboard.writeText(token)
+                  .then(() => enqueueSnackbar("Token copied to clipboard!", { variant: 'success' }))
                   .catch((e) => console.error(e));
               }
             }}
@@ -144,17 +150,9 @@ const NavBar = () => {
           >
             Copy Token
           </Button>
-          <Button
-            onClick={() => {
-              const keycloak_account_url = auth.settings.authority + "/account";
-              window.location.href = keycloak_account_url;
-            }}
-            variant="outlined"
-          >
-            Settings
-          </Button>
         </Stack>
       </Modal>
+      </Stack>  
     </Stack>
   );
 };
