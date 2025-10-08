@@ -5,7 +5,7 @@ import RoutingComponent from "./RoutingComponent/RoutingComponent";
 
 const Skeleton = () => {
   return (
-    <Sheet sx={{ display: "flex", flexDirection: "column" }}>
+    <Sheet sx={{ width: "100%", minWidth: "350px", display: "flex", flexDirection: "column"}}>
       <Box sx={{minHeight: "100vh"}}>
           <Stack id={"navbar"} direction={"row"} alignItems={"center"} spacing={1} sx={{
           height: "68px",
@@ -15,7 +15,7 @@ const Skeleton = () => {
         }}>
           <Navigation />
         </Stack>
-        <Box sx={{m: "2em"}}>
+        <Box sx={{m: "2em 1em", overflowX: "auto"}}>
           <RoutingComponent />
         </Box>
       </Box>

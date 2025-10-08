@@ -1,46 +1,54 @@
-import { Button, IconButton, Link as JoyLink, Stack } from "@mui/joy";
+import { Button, Drawer, IconButton, List, ListItem, ListItemButton, Stack } from "@mui/joy";
 import { Person } from "@mui/icons-material";
-import { Notifications } from "@mui/icons-material";
+import { Notifications, Menu } from "@mui/icons-material";
 import { enqueueSnackbar } from "notistack";
 import provadisIcon from "@assets/provadis-icon.svg";
-import { Link as ReactRouterLink, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useAuth } from "react-oidc-context";
 import { useState } from "react";
 import { Modal } from "@agile-software/shared-components";
 import useUser from "../../hooks/useUser";
 
-const NavBar = ({ navBarElements, setActiveMenu }) => {
+const NavBar = ({navBarElements}) => {
 	const navigate = useNavigate();
 	const auth = useAuth();
 	const user = useUser();
 	const [openUserModal, setOpenUserModal] = useState(false);
+	const [isDrawerExpanded, setDrawerExpanded] = useState(false);
+
+	const onItemClick = (path: string) => {
+		navigate(path);
+		setDrawerExpanded(false);
+	};
 
 	return (
 		<Stack direction="row" component="nav" alignItems="center" justifyContent="space-between" width="100%">
-			<Stack direction={"row"} spacing={"50px"} alignItems={"center"}>
-				<img src={provadisIcon} alt={"Provadis Logo"} style={{ height: "36px", cursor: "pointer" }} onClick={() => navigate("/")} />
-				{navBarElements.map((element) => (
-					<JoyLink
-						component={ReactRouterLink}
-						level="body-sm"
-						sx={{
-							fontSize: "13px",
-							userSelect: "none",
-							color: "rgb(50, 56, 62)",
-							":hover": {
-								color: "primary.500",
-								cursor: "pointer",
-								textDecoration: "none",
-							},
-						}}
-						to={element.path}
-						key={element.path}
-						onMouseEnter={() => element.children && setActiveMenu(element.name)}
-					>
-						{element.name}
-					</JoyLink>
-				))}
-			</Stack>
+			<Drawer open={isDrawerExpanded} onClose={() => setDrawerExpanded(false)} sx={{}}>
+				<List>
+					<ListItem>
+						<ListItemButton onClick={()=>onItemClick("/")}>Home</ListItemButton>
+					</ListItem>
+					{navBarElements.map((element) => (
+						<ListItem key={element.name} nested>
+							<ListItemButton onClick={()=>onItemClick(element.path)}>{element.name}</ListItemButton>
+							{element.children &&
+								element.children.map((child) => (
+									<List key={child.name} sx={{ mx: 1 }}>
+										<ListItem>
+											<ListItemButton onClick={()=>onItemClick(child.path)}>{child.name}</ListItemButton>
+										</ListItem>
+									</List>
+								))}
+						</ListItem>
+					))}
+				</List>
+			</Drawer>
+
+			<IconButton onClick={() => setDrawerExpanded(true)} key={"drawer"} color={"primary"} variant={"plain"}>
+				<Menu />
+			</IconButton>
+
+			<img src={provadisIcon} alt={"Provadis Logo"} style={{ height: "36px", cursor: "pointer" }} onClick={() => navigate("/")} />
 
 			<Stack direction="row" spacing={3} alignItems="center">
 				{/* Notice bell modal */}

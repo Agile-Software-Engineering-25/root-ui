@@ -1,47 +1,7 @@
 import { Stack, Link as JoyLink } from "@mui/joy";
 import { Link as ReactRouterLink } from "react-router";
 
-const navBarElements = [
-  {
-    name: "Prüfungen und Noten",
-    path: "/exams",
-    children: [
-      {name: "Zeugnisse", path: "/exams/certificate"},
-      {name: "Prüfungen", path: "/exams/exam"}
-    ]
-  },
-  {
-    name: "Dokumentenmanagement",
-    path: "/document-management",
-    children: [
-      {name: "Newsfeed", path: "/document-management/newsfeed"},
-      {name: "Dokumente", path: "/document-management/documents"},
-      {name: "Anträge", path: "/document-management/requests"}
-    ]
-  },
-  {
-    name: "Stammdaten",
-    path: "/data",
-    children: [
-      {name: "Personen", path: "/data/person"},
-      {name: "Studieninhalt", path: "data/study"}
-    ]
-  },
-  {
-    name: "Parkplatzanalyse",
-    path: "/parkingspot",
-  },
-  {
-    name: "Stundenplan",
-    path: "/timetable",
-  },
-  {
-    name: "Raumressourcen",
-    path: "/room-booking/rooms"
-  }
-];
-
-const SubNav = ({ activeMenu, setActiveMenu }) => {
+const SubNav = ({ navBarElements, activeMenu, setActiveMenu }) => {
   if (!activeMenu) return null;
 
   const children = navBarElements.find((el) => el.name === activeMenu)?.children;
