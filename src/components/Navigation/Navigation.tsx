@@ -7,7 +7,7 @@ const Navigation = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   return (
-    <Stack width="100%">
+    <Stack width="100%" zIndex={1000}>
       <NavBar setActiveMenu={setActiveMenu} />
       <SubNav activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
     </Stack>
