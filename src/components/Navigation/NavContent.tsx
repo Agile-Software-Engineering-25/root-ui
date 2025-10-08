@@ -6,7 +6,7 @@ export default function NavContent({ navBarElements }) {
 	const navigate = useNavigate();
 	const [currentItem, setCurrentItem] = useState(null);
 	return (
-		<List orientation="horizontal" sx={{ justifyContent: "space-between" }}>
+		<List orientation="horizontal" sx={{ display: "flex", justifyContent: "center" }}>
 			{navBarElements.map((element, index) => (
 				<ListItem>
 					<ListItemButton onClick={() => navigate(element.path)} onMouseEnter={() => setCurrentItem(element.children ? index : null)}>
