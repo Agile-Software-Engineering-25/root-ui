@@ -1,9 +1,10 @@
 import { Stack } from "@mui/joy";
-import NavBar from "../NavBar/NavBar.tsx";
-import SubNav from "../SubNav/SubNav.tsx";
-import NavDrawer from "../NavDrawer/NavDrawer.tsx";
+import { useNavigate } from "react-router";
 import { useWindowSize } from "../../hooks/useWindowSize.ts";
-import { useState } from "react";
+import provadisIcon from "@assets/provadis-icon.svg";
+import PostNav from "./NavMenu.tsx";
+import NavContent from "./NavContent.tsx";
+import NavDrawer from "./NavDrawer.tsx";
 
 const routes = [
 	{
@@ -46,21 +47,17 @@ const routes = [
 ];
 
 const Navigation = () => {
+	const navigate = useNavigate();
 	const { width } = useWindowSize();
-	const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
 	return (
 		<Stack width="100%" zIndex={1000}>
-			{/* {width < 1120 ? (
-				<NavDrawer navBarElements={routes} />
-			) : (
-				<>
-					<NavBar navBarElements={routes} setActiveMenu={setActiveMenu} />
-					<SubNav navBarElements={routes} activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
-				</>
-			)} */}
-
-      
+			<Stack sx={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "10px" }}>
+				{width < 1120 && <NavDrawer navBarElements={routes} />}
+				<img src={provadisIcon} alt={"Provadis Logo"} style={{ height: "36px", cursor: "pointer" }} onClick={() => navigate("/")} />
+				{width >= 1120 && <NavContent navBarElements={routes} />}
+				<PostNav />
+			</Stack>
 		</Stack>
 	);
 };
