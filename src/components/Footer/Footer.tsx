@@ -40,31 +40,37 @@ export default function Footer() {
 					<img src={provadisIcon} alt="Provadis Logo" style={{ cursor: "pointer", width: "80%", maxWidth: "600px" }} onClick={() => navigate("/")} />
 				</Grid>
 
-				<Grid size={{ xs: 12, md: 4, lg: 3 }} sx={{ ...flexcenter, alignItems: "center", flexDirection: "column", gap: 3 }}>
+				<Grid size={{ xs: 6, md: 4, lg: 3 }} sx={{ ...flexcenter, alignItems: "center", flexDirection: "column", gap: 3 }}>
 					<Divider sx={{ "--Divider-childPosition": "50%" }}>COMPANY</Divider>
-					{companyLinks.map((src, index) => (
-						<JoyLink key={index} level="body-sm" underline="none" sx={{ color: "white", "&:hover": { color: "primary.300" } }} href={src.path}>
-							{src.name}
-						</JoyLink>
-					))}
+					<Box sx={{ ...flexcenter, flexDirection: "column", justifyContent: "start", gap: 3 }}>
+						{companyLinks.map((src, index) => (
+							<JoyLink key={index} level="body-sm" underline="none" sx={{ color: "white", "&:hover": { color: "primary.300" } }} href={src.path}>
+								{src.name}
+							</JoyLink>
+						))}
+					</Box>
 				</Grid>
 
-				<Grid size={{ xs: 12, md: 4, lg: 3 }} sx={{ ...flexcenter, alignItems: "center", flexDirection: "column", gap: 3 }}>
+				<Grid size={{ xs: 6, md: 4, lg: 3 }} sx={{ ...flexcenter, alignItems: "center", flexDirection: "column", gap: 3 }}>
 					<Divider sx={{ "--Divider-childPosition": "50%" }}>RESOURCES</Divider>
-					{resourceLinks.map((src, index) => (
-						<JoyLink key={index} level="body-sm" underline="none" sx={{ color: "white", "&:hover": { color: "primary.300" } }} href={src.path}>
-							{src.name}
-						</JoyLink>
-					))}
+					<Box sx={{ ...flexcenter, flexDirection: "column", justifyContent: "start", gap: 3 }}>
+						{resourceLinks.map((src, index) => (
+							<JoyLink key={index} level="body-sm" underline="none" sx={{ color: "white", "&:hover": { color: "primary.300" } }} href={src.path}>
+								{src.name}
+							</JoyLink>
+						))}
+					</Box>
 				</Grid>
 
 				<Grid size={{ xs: 12, md: 4, lg: 3 }} sx={{ ...flexcenter, alignItems: "center", flexDirection: "column", gap: 3 }}>
 					<Divider sx={{ "--Divider-childPosition": "50%" }}>CONTACT</Divider>
-					{contactList.map((line, index) => (
-						<Typography key={index} level="body-sm" sx={{ color: "white" }}>
-							{line}
-						</Typography>
-					))}
+					<Box sx={{ ...flexcenter, flexDirection: "column", justifyContent: "start", gap: 3 }}>
+						{contactList.map((line, index) => (
+							<Typography key={index} level="body-sm" sx={{ color: "white" }}>
+								{line}
+							</Typography>
+						))}
+					</Box>
 				</Grid>
 
 				<Grid size={{ xs: 12 }}>
