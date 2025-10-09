@@ -1,128 +1,84 @@
-import { Box, Stack, Typography, Link as JoyLink, IconButton } from "@mui/joy";
+import Grid from "@mui/material/Grid";
+import { Box, Typography, Link as JoyLink, IconButton, Divider } from "@mui/joy";
 import { Facebook, Twitter, LinkedIn, Instagram } from "@mui/icons-material";
 import provadisIcon from "@assets/provadis_logo.png";
+import { useNavigate } from "react-router";
 
-const companyLinks = ["ABOUT US", "BLOG", "PARTNERSHIPS", "CAREERS", "PRESS", "IMPRESSUM"];
-const resourceLinks = ["APPLICATION", "SYSTEMS", "FAQ"];
+const companyLinks = [
+	{ name: "ABOUT US", path: "#" },
+	{ name: "BLOG", path: "#" },
+	{ name: "PARTNERSHIPS", path: "#" },
+	{ name: "CAREERS", path: "#" },
+	{ name: "PRESS", path: "#" },
+	{ name: "IMPRESSUM", path: "#" },
+];
 
-const Footer = () => {
-  return (
-    <Box
-      component="footer"
-      sx={{
-        bgcolor: "#002E6D",
-        px: 6,
-        py: 6,
-        mt: "auto",
-      }}
-    >
-      {/* Hauptbereich */}
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="flex-start"
-        sx={{ maxWidth: "1200px", mx: "auto", width: "100%" }}
-      >
-        {/* Logo */}
-        <Stack spacing={2}>
-          <img src={provadisIcon} alt="Provadis Logo" style={{ height: 30 }} />
-        </Stack>
+const resourceLinks = [
+	{ name: "APPLICATION", path: "#" },
+	{ name: "SYSTEMS", path: "#" },
+	{ name: "FAQ", path: "#" },
+];
 
-        {/* Company */}
-        <Stack spacing={2}>
-          <Typography level="body-sm" fontWeight="lg" sx={{ color: "white" }}>
-            COMPANY
-          </Typography>
-          <Stack spacing={1.2}>
-            {companyLinks.map((link) => (
-              <JoyLink
-                key={link}
-                level="body-sm"
-                underline="none"
-                sx={{
-                  color: "white",
-                  "&:hover": { color: "primary.300" },
-                }}
-                href="#"
-              >
-                {link}
-              </JoyLink>
-            ))}
-          </Stack>
-        </Stack>
+const socialMediaList = [
+	{ icon: <Facebook />, path: "#" },
+	{ icon: <Twitter />, path: "#" },
+	{ icon: <LinkedIn />, path: "#" },
+	{ icon: <Instagram />, path: "#" },
+];
 
-        {/* Resources */}
-        <Stack spacing={2}>
-          <Typography level="body-sm" fontWeight="lg" sx={{ color: "white" }}>
-            RESOURCES
-          </Typography>
-          <Stack spacing={1.2}>
-            {resourceLinks.map((link) => (
-              <JoyLink
-                key={link}
-                level="body-sm"
-                underline="none"
-                sx={{
-                  color: "white",
-                  "&:hover": { color: "primary.300" },
-                }}
-                href="#"
-              >
-                {link}
-              </JoyLink>
-            ))}
-          </Stack>
-        </Stack>
+const contactList = ["Provadis School of International", "Management and Technology AG", "Industriepark Höchst, Gebäude B845", "65926 Frankfurt am Main", "Telefon: +49 69 395-81051", "E-Mail: Info@provadis-hochschule.de"];
 
-        {/* Contact */}
-        <Stack spacing={2} maxWidth={300}>
-          <Typography level="body-sm" fontWeight="lg" sx={{ color: "white" }}>
-            CONTACT
-          </Typography>
-          <Stack spacing={1.2}>
-            {[
-              "Provadis School of International",
-              "Management and Technology AG",
-              "Industriepark Höchst, Gebäude B845",
-              "65926 Frankfurt am Main",
-              "Telefon: +49 69 395-81051",
-              "E-Mail: Info@provadis-hochschule.de",
-            ].map((line, idx) => (
-              <Typography key={idx} level="body-sm" sx={{ color: "white" }}>
-                {line}
-              </Typography>
-            ))}
-          </Stack>
-        </Stack>
-      </Stack>
+const flexcenter = { display: "flex", justifyContent: "center", alignItems: "start" };
 
-      {/* Divider */}
-      <Box
-        sx={{
-          borderTop: "1px solid white",
-          mt: 4,
-          pt: 2,
-          mx: "2",
-        }}
-      />
+export default function Footer() {
+	const navigate = useNavigate();
 
-      {/* Social Media */}
-      <Stack direction="row" justifyContent="center" spacing={2} mt={2}>
-        <IconButton variant="plain" sx={{ color: "white" }}>
-          <Facebook />
-        </IconButton>
-        <IconButton variant="plain" sx={{ color: "white" }}>
-          <Twitter />
-        </IconButton>
-        <IconButton variant="plain" sx={{ color: "white" }}>
-          <LinkedIn />
-        </IconButton>
-        <IconButton variant="plain" sx={{color: "white"}}>
-          <Instagram />
-        </IconButton>
-      </Stack>
-    </Box>
-  );
-};
+	return (
+		<Box component="footer" sx={{ bgcolor: "#002E6D", px: 6, py: 6, mt: "auto" }}>
+			<Grid container spacing={3} sx={{ ...flexcenter, maxWidth: "2000px", margin: "0 auto" }}>
+				<Grid size={{ xs: 12, lg: 3 }} sx={{ ...flexcenter, alignContent: "center" }}>
+					<img src={provadisIcon} alt="Provadis Logo" style={{ cursor: "pointer", width: "80%", maxWidth: "600px" }} onClick={() => navigate("/")} />
+				</Grid>
 
-export default Footer;
+				<Grid size={{ xs: 12, md: 4, lg: 3 }} sx={{ ...flexcenter, alignItems: "center", flexDirection: "column", gap: 3 }}>
+					<Divider sx={{ "--Divider-childPosition": "50%" }}>COMPANY</Divider>
+					{companyLinks.map((src, index) => (
+						<JoyLink key={index} level="body-sm" underline="none" sx={{ color: "white", "&:hover": { color: "primary.300" } }} href={src.path}>
+							{src.name}
+						</JoyLink>
+					))}
+				</Grid>
+
+				<Grid size={{ xs: 12, md: 4, lg: 3 }} sx={{ ...flexcenter, alignItems: "center", flexDirection: "column", gap: 3 }}>
+					<Divider sx={{ "--Divider-childPosition": "50%" }}>RESOURCES</Divider>
+					{resourceLinks.map((src, index) => (
+						<JoyLink key={index} level="body-sm" underline="none" sx={{ color: "white", "&:hover": { color: "primary.300" } }} href={src.path}>
+							{src.name}
+						</JoyLink>
+					))}
+				</Grid>
+
+				<Grid size={{ xs: 12, md: 4, lg: 3 }} sx={{ ...flexcenter, alignItems: "center", flexDirection: "column", gap: 3 }}>
+					<Divider sx={{ "--Divider-childPosition": "50%" }}>CONTACT</Divider>
+					{contactList.map((line, index) => (
+						<Typography key={index} level="body-sm" sx={{ color: "white" }}>
+							{line}
+						</Typography>
+					))}
+				</Grid>
+
+				<Grid size={{ xs: 12 }}>
+					<Divider sx={{ "--Divider-childPosition": "50%" }}>Social Media</Divider>
+				</Grid>
+
+				<Grid size={{ xs: 12 }} sx={{ ...flexcenter, gap: 3 }}>
+					{socialMediaList.map((social, index) => (
+						<IconButton key={index} variant="solid" color="primary" onClick={() => navigate(social.path)}>
+							{social.icon}
+						</IconButton>
+					))}
+				</Grid>
+			</Grid>
+		</Box>
+	);
+}
