@@ -51,7 +51,7 @@ const Navigation = () => {
 	const { width } = useWindowSize();
 
 	return (
-		<Stack width="100%" zIndex={1000}>
+		<Stack width="100%">
 			<Stack sx={{ width: "100%", maxWidth: "2000px", margin: "0 auto", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "10px" }}>
 				{width < 1120 && <NavDrawer navBarElements={routes} />}
 				<img src={provadisIcon} alt={"Provadis Logo"} style={{ height: "36px", cursor: "pointer" }} onClick={() => navigate("/")} />
