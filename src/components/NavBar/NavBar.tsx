@@ -33,6 +33,14 @@ const navBarElements = [
     name: "ExaGrad Students",
     path: "/exagrad-students",
   },
+  {
+    name: "Persönliche Informationen",
+    path: "/personal-information",
+  },
+  {
+    name: "Stammdatenverwaltung",
+    path: "/masterdata-management",
+  }
 ];
 
 const NavBar = () => {
