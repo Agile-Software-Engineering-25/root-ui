@@ -40,7 +40,7 @@ const navBarElements = [
   {
     name: "Stammdatenverwaltung",
     path: "/masterdata-management",
-  }
+  },
 ];
 
 const NavBar = () => {
