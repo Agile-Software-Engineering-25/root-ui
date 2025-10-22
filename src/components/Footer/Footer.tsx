@@ -26,7 +26,7 @@ const socialMediaList = [
 	{ icon: <Instagram />, path: "#" },
 ];
 
-const contactList = ["Provadis School of International", "Management and Technology AG", "Industriepark Höchst, Gebäude B845", "65926 Frankfurt am Main", "Telefon: +49 69 395-81051", "E-Mail: Info@provadis-hochschule.de"];
+const contactList = ["Provadis School of International", "Management and Technology AG", "Industriepark Höchst, Gebäude B845", "65926 Frankfurt am Main", "Telefon: +49 69 395-81051", "E-Mail: info@provadis-hochschule.de"];
 
 const flexcenter = { display: "flex", justifyContent: "center", alignItems: "start" };
 
