@@ -24,4 +24,8 @@ export default [
 		name: "@agile-software-engineering/ase-11-persoenliche-daten",
 		basename: "/personal-information",
 	},
+	{
+		name: "@agile-software-engineering/ase-06-antrag-service",
+		basename: "/antrag",
+  	}
 ];

@@ -10,14 +10,14 @@ import PersonalInformationPage from "../../pages/PersonalInformationPage/Persona
 import MasterDataPage from "../../pages/MasterDataPage/MasterDataPage.tsx";
 
 const paths = [
-	{ path: "/exams", component: <ExamPage /> },
+	{ path: "/exams/exam", component: <ExamPage /> },
 	{ path: "/room-booking", component: <RoomBookingService /> },
-	{ path: "/document-management", component: <BaseDataPage /> },
-	{ path: "/exagrad-students", component: <ExaGradStudentPage /> },
+	{ path: "/document-management/documents", component: <BaseDataPage /> },
+	{ path: "/exams/certificate", component: <ExaGradStudentPage /> },
 	{ path: "/about", component: <AboutPage /> },
 	{ path: "/", component: <RootPage /> },
-	{ path: "/personal-information", component: <PersonalInformationPage /> },
-	{ path: "/masterdata-management", component: <MasterDataPage /> },
+	{ path: "/data/person", component: <PersonalInformationPage /> },
+	{ path: "/data/study", component: <MasterDataPage /> },
 ];
 
 const RoutingComponent = () => {
