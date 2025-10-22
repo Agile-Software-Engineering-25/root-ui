@@ -29,7 +29,7 @@ const routes = [
 		path: "/data",
 		children: [
 			{ name: "Personen", path: "/data/person" },
-			{ name: "Studieninhalt", path: "data/study" },
+			{ name: "Studieninhalt", path: "/data/study" },
 		],
 	},
 	{
