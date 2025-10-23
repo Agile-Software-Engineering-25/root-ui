@@ -50,15 +50,36 @@ const routes = [
 	},
 ];
 
+export interface NavBarElement {
+	name: string;
+	path: string;
+	children?: { name: string; path: string }[];
+}
+
 const Navigation = () => {
 	const navigate = useNavigate();
 	const { width } = useWindowSize();
 
 	return (
 		<Stack width="100%">
-			<Stack sx={{ width: "100%", maxWidth: "2000px", margin: "0 auto", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "10px" }}>
+			<Stack
+				sx={{
+					width: "100%",
+					maxWidth: "2000px",
+					margin: "0 auto",
+					display: "flex",
+					flexDirection: "row",
+					justifyContent: "space-between",
+					gap: "10px",
+				}}
+			>
 				{width < 1120 && <NavDrawer navBarElements={routes} />}
-				<img src={provadisIcon} alt={"Provadis Logo"} style={{ height: "36px", cursor: "pointer" }} onClick={() => navigate("/")} />
+				<img
+					src={provadisIcon}
+					alt={"Provadis Logo"}
+					style={{ height: "36px", cursor: "pointer" }}
+					onClick={() => navigate("/")}
+				/>
 				{width >= 1120 && <NavContent navBarElements={routes} />}
 				<PostNav />
 			</Stack>
