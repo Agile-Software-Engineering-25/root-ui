@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Button, IconButton, Stack } from "@mui/joy";
 import { Person } from "@mui/icons-material";
 import { Notifications } from "@mui/icons-material";
@@ -8,10 +7,12 @@ import { useState } from "react";
 import { Modal } from "@agile-software/shared-components";
 import useUser from "../../hooks/useUser";
 
+type User = ReturnType<typeof useUser>;
+
 const userCreds = [
-	{ name: "User-ID", func: (user) => user.getUserId() },
-	{ name: "Name", func: (user) => user.getFullName() },
-	{ name: "E-Mail", func: (user) => user.getEmail() },
+	{ name: "User-ID", func: (user: User) => user.getUserId() },
+	{ name: "Name", func: (user: User) => user.getFullName() },
+	{ name: "E-Mail", func: (user: User) => user.getEmail() },
 ];
 
 export default function NavMenu() {
@@ -22,7 +23,9 @@ export default function NavMenu() {
 	const logout = () => {
 		auth.signoutRedirect().catch((e) => {
 			console.error(e);
-			enqueueSnackbar("Couldn't logout. Please try again.", { variant: "error" });
+			enqueueSnackbar("Couldn't logout. Please try again.", {
+				variant: "error",
+			});
 		});
 	};
 
@@ -31,27 +34,47 @@ export default function NavMenu() {
 		if (token) {
 			navigator.clipboard
 				.writeText(token)
-				.then(() => enqueueSnackbar("Token copied to clipboard!", { variant: "success" }))
+				.then(() =>
+					enqueueSnackbar("Token copied to clipboard!", { variant: "success" }),
+				)
 				.catch((e) => console.error(e));
 		}
 	};
 
 	return (
-		<Stack sx={{display: "flex", flexDirection: "row", justifyContent: "flex-end", gap: { sm: 1, md: 2, lg: 3 },}}>
+		<Stack 
+			sx={{ 
+				display: "flex", 
+				flexDirection: "row", 
+				justifyContent: "flex-end", 
+				gap: { sm: 1, md: 2, lg: 3 }
+			}}>
 			{/* Notice bell modal */}
 			<IconButton key={"bell-button"} color={"primary"} variant={"plain"}>
 				<Notifications />
 			</IconButton>
 
 			{/* User data and logout modal */}
-			<IconButton onClick={() => setOpenUserModal(true)} key={"logout-button"} color={"primary"} variant={"plain"}>
+			<IconButton
+				onClick={() => setOpenUserModal(true)}
+				key={"logout-button"}
+				color={"primary"}
+				variant={"plain"}
+			>
 				<Person />
 			</IconButton>
-			<Modal header="User Information" open={openUserModal} setOpen={setOpenUserModal} disableEscape={false}>
+			<Modal
+				header="User Information"
+				open={openUserModal}
+				setOpen={setOpenUserModal}
+				disableEscape={false}
+			>
 				<Stack spacing={1} sx={{ marginBottom: 2 }}>
 					{userCreds.map((cred) => (
 						<Stack direction="row" spacing={1}>
-							<span style={{ fontWeight: "bold", minWidth: "80px" }}>{cred.name}:</span>
+							<span style={{ fontWeight: "bold", minWidth: "80px" }}>
+								{cred.name}:
+							</span>
 							<span>{cred.func(user)}</span>
 						</Stack>
 					))}

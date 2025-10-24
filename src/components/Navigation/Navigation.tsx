@@ -49,28 +49,54 @@ const routes = [
 	},
 ];
 
+export interface NavBarElement {
+	name: string;
+	path?: string;
+	children?: { name: string; path: string }[];
+}
+
 const Navigation = () => {
 	const navigate = useNavigate();
 	const { width } = useWindowSize();
 
 	return (
-		<Stack sx={{ width: "100%", maxWidth: "2000px",margin: "0 auto", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "10px" }}>
+		<Stack 
+			sx={{
+				width: "100%", 
+				maxWidth: "2000px",margin: "0 auto", 
+				display: "flex", 
+				flexDirection: "row", 
+				justifyContent: "space-between", 
+				gap: "10px"
+			}}>
 			
 			<Box sx={{flex: "1 1 0"}}>
 				{
 					width < RESP_BREAKPOINT ? 
 					<NavDrawer navBarElements={routes} /> 
 					: 
-					<img src={provadisIcon} alt={"Provadis Logo"} style={{ height: "36px", cursor: "pointer" }} onClick={() => navigate("/")} />
+					<img 
+						src={provadisIcon} 
+						alt={"Provadis Logo"} 
+						style={{ height: "36px", cursor: "pointer" }} 
+						onClick={() => navigate("/")}
+					/>
 				}
 			</Box>
 
-			<Box sx={{ flex: "0 0 auto", display: "flex", justifyContent: "center" }}>
+			<Box 
+				sx={{ flex: "0 0 auto", display: "flex", justifyContent: "center" }}
+			>
 				{
 					width >= RESP_BREAKPOINT ? 
 					<NavContent navBarElements={routes} /> 
 					: 
-					<img src={provadisIcon} alt={"Provadis Logo"} style={{ height: "36px", cursor: "pointer" }} onClick={() => navigate("/")} />
+					<img 
+						src={provadisIcon} 
+						alt={"Provadis Logo"} 
+						style={{ height: "36px", cursor: "pointer" }} 
+						onClick={() => navigate("/")}
+					/>
 				}
 			</Box>
 
