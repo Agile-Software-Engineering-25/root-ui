@@ -8,16 +8,28 @@ import BaseDataPage from "../../pages/BaseDataPage/BaseDataPage.tsx";
 import ExaGradStudentPage from "../../pages/ExaGradStudentPage/ExaGradStudentPage.tsx";
 import PersonalInformationPage from "../../pages/PersonalInformationPage/PersonalInformationPage.tsx";
 import MasterDataPage from "../../pages/MasterDataPage/MasterDataPage.tsx";
+import EmbedPage from "../../pages/EmbedPage/EmbedPage.tsx";
 
 const paths = [
-	{ path: "/exams/exam", component: <ExamPage /> },
-	{ path: "/room-booking", component: <RoomBookingService /> },
-	{ path: "/document-management/documents", component: <BaseDataPage /> },
-	{ path: "/exams/certificate", component: <ExaGradStudentPage /> },
-	{ path: "/about", component: <AboutPage /> },
 	{ path: "/", component: <RootPage /> },
+
+	{ path: "/exams/exam", component: <ExamPage /> },
+	{ path: "/exams/certificate", component: <ExaGradStudentPage /> },
+
+	// { path: "/document-management/newsfeed", component: <></> },
+	{ path: "/document-management/documents", component: <BaseDataPage /> },
+	{ path: "/document-management/requests", component: <EmbedPage pageID="@agile-software-engineering/ase-06-antrag-service"/> },
+
 	{ path: "/data/person", component: <PersonalInformationPage /> },
 	{ path: "/data/study", component: <MasterDataPage /> },
+
+	// { path: "/parkingspot", component: <></> },
+
+	// { path: "/timetable", component: <></> },
+
+	{ path: "/room-booking", component: <RoomBookingService /> },
+
+	{ path: "/about", component: <AboutPage /> },
 ];
 
 const RoutingComponent = () => {

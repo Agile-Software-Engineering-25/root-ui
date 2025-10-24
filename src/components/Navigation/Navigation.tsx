@@ -1,15 +1,16 @@
-import { Stack } from "@mui/joy";
+import { Box, Stack } from "@mui/joy";
 import { useNavigate } from "react-router";
 import { useWindowSize } from "../../hooks/useWindowSize.ts";
 import provadisIcon from "@assets/provadis-icon.svg";
-import PostNav from "./NavMenu.tsx";
+import NavMenu from "./NavMenu.tsx";
 import NavContent from "./NavContent.tsx";
 import NavDrawer from "./NavDrawer.tsx";
+
+const RESP_BREAKPOINT = 1250;
 
 const routes = [
 	{
 		name: "Prüfungen und Noten",
-		path: "/exams",
 		children: [
 			{ name: "Zeugnisse", path: "/exams/certificate" },
 			{ name: "Prüfungen", path: "/exams/exam" },
@@ -17,7 +18,6 @@ const routes = [
 	},
 	{
 		name: "Dokumentenmanagement",
-		path: "/document-management",
 		children: [
 			{ name: "Newsfeed", path: "/document-management/newsfeed" },
 			{ name: "Dokumente", path: "/document-management/documents" },
@@ -26,7 +26,6 @@ const routes = [
 	},
 	{
 		name: "Stammdaten",
-		path: "/data",
 		children: [
 			{ name: "Personen", path: "/data/person" },
 			{ name: "Studieninhalt", path: "/data/study" },
@@ -55,13 +54,29 @@ const Navigation = () => {
 	const { width } = useWindowSize();
 
 	return (
-		<Stack width="100%">
-			<Stack sx={{ width: "100%", maxWidth: "2000px", margin: "0 auto", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "10px" }}>
-				{width < 1120 && <NavDrawer navBarElements={routes} />}
-				<img src={provadisIcon} alt={"Provadis Logo"} style={{ height: "36px", cursor: "pointer" }} onClick={() => navigate("/")} />
-				{width >= 1120 && <NavContent navBarElements={routes} />}
-				<PostNav />
-			</Stack>
+		<Stack sx={{ width: "100%", maxWidth: "2000px",margin: "0 auto", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "10px" }}>
+			
+			<Box sx={{flex: "1 1 0"}}>
+				{
+					width < RESP_BREAKPOINT ? 
+					<NavDrawer navBarElements={routes} /> 
+					: 
+					<img src={provadisIcon} alt={"Provadis Logo"} style={{ height: "36px", cursor: "pointer" }} onClick={() => navigate("/")} />
+				}
+			</Box>
+
+			<Box sx={{ flex: "0 0 auto", display: "flex", justifyContent: "center" }}>
+				{
+					width >= RESP_BREAKPOINT ? 
+					<NavContent navBarElements={routes} /> 
+					: 
+					<img src={provadisIcon} alt={"Provadis Logo"} style={{ height: "36px", cursor: "pointer" }} onClick={() => navigate("/")} />
+				}
+			</Box>
+
+			<Box sx={{flex: "1 1 0"}}>
+				<NavMenu />
+			</Box>
 		</Stack>
 	);
 };

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Button, IconButton, Stack } from "@mui/joy";
 import { Person } from "@mui/icons-material";
 import { Notifications } from "@mui/icons-material";
@@ -13,7 +14,7 @@ const userCreds = [
 	{ name: "E-Mail", func: (user) => user.getEmail() },
 ];
 
-export default function PostNav() {
+export default function NavMenu() {
 	const auth = useAuth();
 	const user = useUser();
 	const [openUserModal, setOpenUserModal] = useState(false);
@@ -36,8 +37,7 @@ export default function PostNav() {
 	};
 
 	return (
-		// <Stack direction="row" spacing={3} alignItems="center">
-		<Stack sx={{width: "110px", display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+		<Stack sx={{display: "flex", flexDirection: "row", justifyContent: "flex-end", gap: { sm: 1, md: 2, lg: 3 },}}>
 			{/* Notice bell modal */}
 			<IconButton key={"bell-button"} color={"primary"} variant={"plain"}>
 				<Notifications />

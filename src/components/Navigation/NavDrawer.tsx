@@ -1,3 +1,5 @@
+// @ts-nocheck
+import SubdirectoryArrowRightIcon from "@mui/icons-material/SubdirectoryArrowRight";
 import { Box, Drawer, IconButton, List, ListItem, ListItemButton } from "@mui/joy";
 import { Menu } from "@mui/icons-material";
 import { useNavigate } from "react-router";
@@ -8,6 +10,7 @@ const NavBar = ({ navBarElements }) => {
 	const [isDrawerExpanded, setDrawerExpanded] = useState(false);
 
 	const onItemClick = (path: string) => {
+		if (!path) return;
 		navigate(path);
 		setDrawerExpanded(false);
 	};
@@ -21,12 +24,12 @@ const NavBar = ({ navBarElements }) => {
 					</ListItem>
 					{navBarElements.map((element) => (
 						<ListItem key={element.name} nested>
-							<ListItemButton onClick={() => onItemClick(element.path)}>{element.name}</ListItemButton>
+							<ListItemButton onClick={() => onItemClick(element.path)} sx={element.path ? {} : {backgroundColor: "#98989826"}}>{element.name}</ListItemButton>
 							{element.children &&
 								element.children.map((child) => (
 									<List key={child.name} sx={{ mx: 1 }}>
 										<ListItem>
-											<ListItemButton onClick={() => onItemClick(child.path)}>{child.name}</ListItemButton>
+											<ListItemButton onClick={() => onItemClick(child.path)}><SubdirectoryArrowRightIcon />{child.name}</ListItemButton>
 										</ListItem>
 									</List>
 								))}

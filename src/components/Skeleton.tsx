@@ -8,7 +8,7 @@ const Skeleton = () => {
     <Sheet sx={{ width: "100%", minWidth: "350px", display: "flex", flexDirection: "column"}}>
       <Box sx={{minHeight: "100vh"}}>
           <Stack id={"navbar"} direction={"row"} alignItems={"center"} spacing={1} 
-            sx={{zIndex: "100", position: "sticky", top: "0", height: "68px", px: "25px", backgroundColor: "white", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)", boxSizing: "border-box"}}
+            sx={{zIndex: "100", position: "sticky", top: "0", height: "68px", px: "20px", display: "flex", justifyContent: "center", backgroundColor: "white", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)", boxSizing: "border-box"}}
           >
           <Navigation />
         </Stack>

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { List, ListItem, ListItemButton } from "@mui/joy";
 import { useState } from "react";
 import { useNavigate } from "react-router";
@@ -9,7 +10,7 @@ export default function NavContent({ navBarElements }) {
 		<List orientation="horizontal" sx={{ display: "flex", justifyContent: "center" }}>
 			{navBarElements.map((element, index) => (
 				<ListItem>
-					<ListItemButton onClick={() => navigate(element.path)} onMouseEnter={() => setCurrentItem(element.children ? index : null)}>
+					<ListItemButton onClick={() => navigate(element?.path ?? "#")} onMouseEnter={() => setCurrentItem(element.children ? index : null)}>
 						{element.name}
 					</ListItemButton>
 					{currentItem === index && (
