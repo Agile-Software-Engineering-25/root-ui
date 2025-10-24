@@ -1,32 +1,54 @@
-import { Box, Drawer, IconButton, List, ListItem, ListItemButton } from "@mui/joy";
-import { Menu } from "@mui/icons-material";
+import {
+	Box,
+	Drawer,
+	IconButton,
+	List,
+	ListItem,
+	ListItemButton,
+} from "@mui/joy";
+import { Menu, SubdirectoryArrowRight } from "@mui/icons-material";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import { NavBarElement } from "./Navigation";
 
-const NavBar = ({ navBarElements }) => {
+const NavBar = ({ navBarElements }: { navBarElements: NavBarElement[] }) => {
 	const navigate = useNavigate();
 	const [isDrawerExpanded, setDrawerExpanded] = useState(false);
 
-	const onItemClick = (path: string) => {
+	const onItemClick = (path?: string) => {
+		if (!path) return;
 		navigate(path);
 		setDrawerExpanded(false);
 	};
 
 	return (
 		<Box>
-			<Drawer open={isDrawerExpanded} onClose={() => setDrawerExpanded(false)} sx={{}}>
+			<Drawer
+				open={isDrawerExpanded}
+				onClose={() => setDrawerExpanded(false)}
+			>
 				<List>
 					<ListItem>
-						<ListItemButton onClick={() => onItemClick("/")}>Home</ListItemButton>
+						<ListItemButton onClick={() => onItemClick("/")}>
+							Home
+						</ListItemButton>
 					</ListItem>
 					{navBarElements.map((element) => (
 						<ListItem key={element.name} nested>
-							<ListItemButton onClick={() => onItemClick(element.path)}>{element.name}</ListItemButton>
+							<ListItemButton 
+								onClick={() => onItemClick(element.path)}
+								sx={element.path ? {} : {backgroundColor: "#98989826"}}
+							>
+								{element.name}
+							</ListItemButton>
 							{element.children &&
 								element.children.map((child) => (
 									<List key={child.name} sx={{ mx: 1 }}>
 										<ListItem>
-											<ListItemButton onClick={() => onItemClick(child.path)}>{child.name}</ListItemButton>
+											<ListItemButton onClick={() => onItemClick(child.path)}>
+												<SubdirectoryArrowRight />
+												{child.name}
+											</ListItemButton>
 										</ListItem>
 									</List>
 								))}
@@ -35,7 +57,12 @@ const NavBar = ({ navBarElements }) => {
 				</List>
 			</Drawer>
 
-			<IconButton onClick={() => setDrawerExpanded(true)} key={"drawer"} color={"primary"} variant={"plain"}>
+			<IconButton
+				onClick={() => setDrawerExpanded(true)}
+				key={"drawer"}
+				color={"primary"}
+				variant={"plain"}
+			>
 				<Menu />
 			</IconButton>
 		</Box>
