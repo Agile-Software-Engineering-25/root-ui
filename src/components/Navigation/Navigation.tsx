@@ -42,7 +42,11 @@ const routes = [
 	},
 	{
 		name: "Raumressourcen",
-		path: "/room-booking/rooms",
+		path: "/room-booking",
+	},
+	{
+		name: "About",
+		path: "/about",
 	},
 ];
 
