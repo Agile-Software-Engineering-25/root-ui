@@ -19,7 +19,7 @@ const paths = [
 	// { path: "/document-management/newsfeed", component: <></> },
 	{ path: "/document-management/documents", component: <BaseDataPage /> },
 	{ path: "/document-management/requests", component: <EmbedPage pageID="@agile-software-engineering/ase-06-antrag-service"/> },
-    { path: "/document-management/newsfeed", component: <EmbedPage pageID="@agile-software-engineering/ase-06-newsfeed-service"/> },
+    { path: "/document-management/newsfeed", component: <EmbedPage pageID="@agile-software-engineering/ase-05-newsfeed-service"/> },
 
 	{ path: "/data/person", component: <PersonalInformationPage /> },
 	{ path: "/data/study", component: <MasterDataPage /> },
