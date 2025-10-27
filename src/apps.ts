@@ -12,7 +12,7 @@ export default [
 
 
 	{
-		name: "newsfeed",				// <---- TODO: Change here to your project's name. Then in importMap.json add that name and the link to your ui.
+		name: "@agile-software-engineering/ase-05-newsfeed-service",
 		basename: "/document-management/newsfeed",
 	},
 	{
