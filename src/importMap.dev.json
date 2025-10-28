@@ -1,14 +1,16 @@
 {
-	"imports": {
-		"@agile-software-engineering/ase-12-lecturer-service": "http://localhost:5173/src/singleSpa.tsx",
-
-		"@agile-software-engineering/ase-07-base-data-service": "http://localhost:5173/src/singleSpa.tsx",
-		"@agile-software-engineering/ase-06-antrag-service": "http://localhost:5173/src/singleSpa.tsx",
-
-		"@agile-software-engineering/ase-11-persoenliche-daten": "http://localhost:5173/src/singleSpa.tsx",
-		
-		"@agile-software-engineering/ase-13-student-service": "http://localhost:5173/src/singleSpa.tsx",
-		"@agile-software-engineering/ase-11-stammdatenverwaltung": "http://localhost:5173/src/singleSpa.tsx",
-		"@agile-software-engineering/ase-01-room-booking-service": "http://localhost:5173/src/singleSpa.tsx"
-	}
+  "imports": {
+    "@agile-software-engineering/ase-01-room-booking-service": "https://sau-portal.de/api/ase-01/singleSpa.js",
+    "@agile-software-engineering/ase-02-timetable-service": "https://sau-portal.de/api/ase-02/singleSpa.js",
+    "@agile-software-engineering/ase-03-parking-service": "https://sau-portal.de/api/ase-03/singleSpa.js",
+    "@agile-software-engineering/ase-06-antrag-service": "https://sau-portal.de/api/ase-06/singleSpa.js",
+    "@agile-software-engineering/ase-07-base-data-service": "https://sau-portal.de/api/ase-07/singleSpa.js",
+    "@agile-software-engineering/ase-09-studyunit-data-service": "https://sau-portal.de/api/ase-09/singleSpa.js",
+    "@agile-software-engineering/ase-11-persoenliche-daten": "https://sau-portal.de/api/ase-11/persoenliche-daten/singleSpa.js",
+    "@agile-software-engineering/ase-11-stammdatenverwaltung": "https://sau-portal.de/api/ase-11/stammdatenverwaltung/singleSpa.js",
+    "@agile-software-engineering/ase-12-lecturer-service": "https://sau-portal.de/api/ase-12/singleSpa.js",
+    "@agile-software-engineering/ase-13-student-service": "https://sau-portal.de/api/ase-13/singleSpa.js",
+    "@agile-software-engineering/ase-14-examination-service": "https://sau-portal.de/api/ase-14/singleSpa.js",
+    "@agile-software-engineering/ase-15-notification-service": "https://sau-portal.de/api/ase-15/singleSpa.js"
+  }
 }
