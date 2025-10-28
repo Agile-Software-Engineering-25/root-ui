@@ -1,11 +1,12 @@
-import { Button, IconButton, Stack } from "@mui/joy";
-import { Person } from "@mui/icons-material";
-import { Notifications } from "@mui/icons-material";
-import { enqueueSnackbar } from "notistack";
-import { useAuth } from "react-oidc-context";
-import { useState } from "react";
 import { Modal } from "@agile-software/shared-components";
+import { Person } from "@mui/icons-material";
+import { Button, IconButton, Stack } from "@mui/joy";
+import { enqueueSnackbar } from "notistack";
+import { useState } from "react";
+import { useAuth } from "react-oidc-context";
 import useUser from "../../hooks/useUser";
+import EmbeddedApplication from "../EmbeddedApplication/EmbeddedApplication";
+import LoadingComponent from "../LoadingComponent/LoadingComponent";
 
 type User = ReturnType<typeof useUser>;
 
@@ -42,17 +43,26 @@ export default function NavMenu() {
 	};
 
 	return (
-		<Stack 
-			sx={{ 
-				display: "flex", 
-				flexDirection: "row", 
-				justifyContent: "flex-end", 
+		<Stack
+			sx={{
+				display: "flex",
+				flexDirection: "row",
+				justifyContent: "flex-end",
 				gap: { sm: 1, md: 2, lg: 3 }
 			}}>
 			{/* Notice bell modal */}
-			<IconButton key={"bell-button"} color={"primary"} variant={"plain"}>
-				<Notifications />
-			</IconButton>
+			<EmbeddedApplication
+				name="@agile-software-engineering/ase-15-notification-service"
+				placeholder={
+					<LoadingComponent sx={{
+						width: "40px",
+						height: "40px",
+					}}
+						progressSize="sm"
+						hideLabel
+					/>
+				}
+			/>
 
 			{/* User data and logout modal */}
 			<IconButton
@@ -68,6 +78,9 @@ export default function NavMenu() {
 				open={openUserModal}
 				setOpen={setOpenUserModal}
 				disableEscape={false}
+				modalSX={{
+					zIndex: 9999999
+				}}
 			>
 				<Stack spacing={1} sx={{ marginBottom: 2 }}>
 					{userCreds.map((cred) => (
