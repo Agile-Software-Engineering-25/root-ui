@@ -17,12 +17,16 @@ export default [
     basename: "/timetable",
   },
   {
+    name: "@agile-software-engineering/ase-06-antrag-service",
+    basename: "/document-management/requests",
+  },
+  {
     name: "@agile-software-engineering/ase-07-base-data-service",
     basename: "/document-management/documents",
   },
   {
-    name: "@agile-software-engineering/ase-06-antrag-service",
-    basename: "/document-management/requests",
+    name: "@agile-software-engineering/ase-09-studyunit-data-service",
+    basename: "/masterdata/studycontent",
   },
   {
     name: "@agile-software-engineering/ase-11-persoenliche-daten",
