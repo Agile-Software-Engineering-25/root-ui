@@ -1,38 +1,91 @@
 import { Box } from "@mui/joy";
 import { useLocation } from "react-router";
-import AboutPage from "../../pages/AboutPage/AboutPage.tsx";
-import BaseDataPage from "../../pages/BaseDataPage/BaseDataPage.tsx";
-import EmbedPage from "../../pages/EmbedPage/EmbedPage.tsx";
 import ExamPage from "../../pages/ExamPage/ExamPage.tsx";
-import PersonalInformationPage from "../../pages/PersonalInformationPage/PersonalInformationPage.tsx";
-import RoomBookingService from "../../pages/RoomBookingPage/RoomBookingPage.tsx";
-import RootPage from "../../pages/RootPage/RootPage.tsx";
-import StudyContentPage from "../../pages/StudyContentPage/StudyContentPage.tsx";
+import GenericPage from "./GenericPage";
 
 const paths = [
-  { path: "/", component: <RootPage /> },
-
-  { path: "/exams", component: <ExamPage /> },
-
-  // { path: "/document-management/newsfeed", component: <></> },
-  { path: "/document-management/documents", component: <BaseDataPage /> },
   {
-    path: "/document-management/requests",
+    path: "/",
     component: (
-      <EmbedPage pageID="@agile-software-engineering/ase-06-antrag-service" />
+      <GenericPage
+        title={"Willkommen im neuen Hochschulportal"}
+        subtitle={"Sieh dir die Funktionen an:"}
+      />
     ),
   },
 
-  { path: "/data/person", component: <PersonalInformationPage /> },
-  { path: "/masterdata/studycontent", component: <StudyContentPage /> },
+  { path: "/exams", component: <ExamPage /> },
+  {
+    path: "/document-management/documents",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-07-base-data-service"}
+      />
+    ),
+  },
+  {
+    path: "/document-management/requests",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-06-antrag-service"}
+      />
+    ),
+  },
+  {
+    path: "/document-management/newsfeed",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-05-newsfeed-service"}
+      />
+    ),
+  },
 
-  // { path: "/parkingspot", component: <></> },
-
-  // { path: "/timetable", component: <></> },
-
-  { path: "/room-booking", component: <RoomBookingService /> },
-
-  { path: "/about", component: <AboutPage /> },
+  {
+    path: "/data/person",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-11-persoenliche-daten"}
+      />
+    ),
+  },
+  {
+    path: "/masterdata/studycontent",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-09-studyunit-data-service"}
+      />
+    ),
+  },
+  {
+    path: "/parkingspot",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-03-parking-service"}
+      />
+    ),
+  },
+  {
+    path: "/room-booking",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-01-room-booking-service"}
+      />
+    ),
+  },
+  {
+    path: "/timetable",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-02-timetable-service"}
+      />
+    ),
+  },
+  {
+    path: "/about",
+    component: (
+      <GenericPage title={"SAU"} subtitle={"Student Assistance Utility"} />
+    ),
+  },
 ];
 
 const RoutingComponent = () => {

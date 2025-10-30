@@ -5,16 +5,20 @@ export default [
     basename: "/room-booking",
   },
   {
-    name: "newsfeed", // <---- TODO: Change here to your project's name. Then in importMap.json add that name and the link to your ui.
-    basename: "/document-management/newsfeed",
+    name: "@agile-software-engineering/ase-02-timetable-service",
+    basename: "/timetable",
   },
   {
-    name: "parkplatzanalyse", // <---- TODO: Change here to your project's name. Then in importMap.json add that name and the link to your ui.
+    name: "@agile-software-engineering/ase-03-parking-service",
     basename: "/parkingspot",
   },
   {
     name: "stundenplan", // <---- TODO: Change here to your project's name. Then in importMap.json add that name and the link to your ui.
     basename: "/timetable",
+  },
+  {
+    name: "@agile-software-engineering/ase-05-newsfeed-service",
+    basename: "/document-management/newsfeed",
   },
   {
     name: "@agile-software-engineering/ase-06-antrag-service",
@@ -31,10 +35,6 @@ export default [
   {
     name: "@agile-software-engineering/ase-11-persoenliche-daten",
     basename: "/data/person",
-  },
-  {
-    name: "studieninhalt", // <---- TODO: Change here to your project's name. Then in importMap.json add that name and the link to your ui.
-    basename: "/data/study",
   },
   {
     name: "@agile-software-engineering/ase-11-stammdatenverwaltung",

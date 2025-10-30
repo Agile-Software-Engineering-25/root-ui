@@ -18,6 +18,16 @@ export default function NavContent({
 			{navBarElements.map((element, index) => (
 				<ListItem>
 					<ListItemButton
+						sx={{userSelect: "none", borderRadius: "5px"}}
+						selected={
+							window.location.pathname != "/" &&
+							(
+								element.path === window.location.pathname || 
+								element.children?.map(child => child.path)
+									.join("")
+									.includes(window.location.pathname)
+							)
+						}
 						onClick={() => navigate(element?.path ?? "#")}
 						onMouseEnter={() => setCurrentItem(element.children ? index : null)}
 					>
@@ -44,7 +54,11 @@ export default function NavContent({
 						>
 							{element.children?.map((child) => (
 								<ListItem>
-									<ListItemButton onClick={() => navigate(child.path)}>
+									<ListItemButton 
+										selected={child.path === window.location.pathname}
+										sx={{userSelect: "none", borderRadius: "5px"}} 
+										onClick={() => navigate(child.path)}
+									>
 										{child.name}
 									</ListItemButton>
 								</ListItem>

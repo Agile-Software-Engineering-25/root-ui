@@ -3,6 +3,7 @@
     "@agile-software-engineering/ase-01-room-booking-service": "https://sau-portal.de/api/ase-01/singleSpa.js",
     "@agile-software-engineering/ase-02-timetable-service": "https://sau-portal.de/api/ase-02/singleSpa.js",
     "@agile-software-engineering/ase-03-parking-service": "https://sau-portal.de/api/ase-03/singleSpa.js",
+    "@agile-software-engineering/ase-05-newsfeed-service": "https://sau-portal.de/api/ase-05/singleSpa.js",
     "@agile-software-engineering/ase-06-antrag-service": "https://sau-portal.de/api/ase-06/singleSpa.js",
     "@agile-software-engineering/ase-07-base-data-service": "https://sau-portal.de/api/ase-07/singleSpa.js",
     "@agile-software-engineering/ase-09-studyunit-data-service": "https://sau-portal.de/api/ase-09/singleSpa.js",

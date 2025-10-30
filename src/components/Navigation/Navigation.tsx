@@ -60,7 +60,20 @@ const routes: Route[] = [
   },
   {
     name: "Raumressourcen",
-    path: "/room-booking",
+    children: [
+      {
+        name: "Buchungen",
+        path: "/room-booking/bookings",
+      },
+      {
+        name: "Räume",
+        path: "/room-booking/rooms",
+      },
+      {
+        name: "Gebäude",
+        path: "/room-booking/buildings",
+      },
+    ],
   },
   {
     name: "About",
