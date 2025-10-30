@@ -1,5 +1,6 @@
 import provadisIcon from "@assets/provadis-icon.svg";
 import { Box, Stack } from "@mui/joy";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { useWindowSize } from "../../hooks/useWindowSize.ts";
 import { UserRole } from "../../types/enums.ts";
@@ -25,71 +26,66 @@ export type Subroute = {
 
 const routes: Route[] = [
   {
-    name: "Prüfungen und Noten",
+    name: "nav.exams",
     path: "/exams",
   },
   {
-    name: "Dokumentenmanagement",
+    name: "nav.documentsname",
     children: [
-      { name: "Newsfeed", path: "/document-management/newsfeed" },
-      { name: "Dokumente", path: "/document-management/documents" },
-      { name: "Anträge", path: "/document-management/requests" },
+      { name: "nav.documents.newsfeed", path: "/document-management/newsfeed" },
+      {
+        name: "nav.documents.documents",
+        path: "/document-management/documents",
+      },
+      { name: "nav.documents.requests", path: "/document-management/requests" },
     ],
   },
   {
-    name: "Stammdaten",
+    name: "nav.masterdataname",
     children: [
-      { name: "Personen", path: "/data/person" },
+      { name: "nav.masterdata.persons", path: "/data/person" },
       {
-        name: "Studieninhalt",
+        name: "nav.masterdata.studycontent",
         path: "/masterdata/studycontent",
-        visibleOnRoles: [
-          UserRole.SauAdmin,
-          UserRole.UniversityAdministrativeStaff,
-        ],
       },
     ],
+    visibleOnRoles: [UserRole.SauAdmin, UserRole.UniversityAdministrativeStaff],
   },
   {
-    name: "Parkplatzanalyse",
+    name: "nav.parking",
     path: "/parkingspot",
   },
   {
-    name: "Stundenplan",
+    name: "nav.timetable",
     path: "/timetable",
   },
   {
-    name: "Raumressourcen",
+    name: "nav.roomresourcesname",
     children: [
       {
-        name: "Buchungen",
+        name: "nav.roomresources.bookings",
         path: "/room-booking/bookings",
       },
       {
-        name: "Räume",
+        name: "nav.roomresources.rooms",
         path: "/room-booking/rooms",
       },
       {
-        name: "Gebäude",
+        name: "nav.roomresources.buildings",
         path: "/room-booking/buildings",
       },
     ],
   },
   {
-    name: "About",
+    name: "nav.about",
     path: "/about",
   },
 ];
 
-export interface NavBarElement {
-  name: string;
-  path?: string;
-  children?: { name: string; path: string }[];
-}
-
 const Navigation = () => {
   const navigate = useNavigate();
   const { width } = useWindowSize();
+  const { t } = useTranslation();
 
   return (
     <Stack
@@ -100,29 +96,37 @@ const Navigation = () => {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
+        alignItems: "center",
         gap: "10px",
       }}
     >
-      <Box sx={{ flex: "1 1 0" }}>
+      <Box sx={{ flex: "1 1 0", alignItems: "center" }}>
         {width < RESP_BREAKPOINT ? (
           <NavDrawer navBarElements={routes} />
         ) : (
           <img
             src={provadisIcon}
-            alt={"Provadis Logo"}
+            alt={t("brand.provadisAlt")}
             style={{ height: "36px", cursor: "pointer" }}
             onClick={() => navigate("/")}
           />
         )}
       </Box>
 
-      <Box sx={{ flex: "0 0 auto", display: "flex", justifyContent: "center" }}>
+      <Box
+        sx={{
+          flex: "0 0 auto",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         {width >= RESP_BREAKPOINT ? (
           <NavContent navBarElements={routes} />
         ) : (
           <img
             src={provadisIcon}
-            alt={"Provadis Logo"}
+            alt={t("brand.provadisAlt")}
             style={{ height: "36px", cursor: "pointer" }}
             onClick={() => navigate("/")}
           />

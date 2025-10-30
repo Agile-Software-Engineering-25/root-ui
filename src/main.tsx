@@ -1,10 +1,8 @@
-import {
-  createCustomJoyTheme,
-} from '@agile-software/shared-components';
+import { createCustomJoyTheme } from "@agile-software/shared-components";
 import { CssBaseline, CssVarsProvider, StyledEngineProvider } from "@mui/joy";
-import { SnackbarProvider } from 'notistack';
-import { WebStorageStateStore } from "oidc-client-ts";
+import { SnackbarProvider } from "notistack";
 import type { User } from "oidc-client-ts";
+import { WebStorageStateStore } from "oidc-client-ts";
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { AuthProvider, useAuth } from "react-oidc-context";
@@ -12,18 +10,19 @@ import { BrowserRouter } from "react-router";
 import { getAppNames, registerApplication, start } from "single-spa";
 import apps from "./apps";
 import App from "./components/App";
+import "./i18n";
 
 const oidcAuthority = "https://keycloak.sau-portal.de";
 
-const joyTheme = createCustomJoyTheme()
+const joyTheme = createCustomJoyTheme();
 
 // you can use this for scope config: https://authts.github.io/oidc-client-ts/interfaces/UserManagerSettings.html#scope
 // other config params go here aswell
 const oidcConfig = {
   authority: `${oidcAuthority}/realms/sau`,
   client_id: "root-ui",
-  redirect_uri: window.location.origin + '/',
-  response_type: 'code',
+  redirect_uri: window.location.origin + "/",
+  response_type: "code",
   post_logout_redirect_uri: window.location.origin,
   userStore: new WebStorageStateStore({ store: window.localStorage }),
   stateStore: new WebStorageStateStore({ store: window.localStorage }),
@@ -39,11 +38,10 @@ type RootSpaState = {
   singleSpaStarted: boolean;
 };
 
-const rootSpaState: RootSpaState =
-  (window.__rootSpaState ??= {
-    appsHaveBeenRegistered: false,
-    singleSpaStarted: false,
-  });
+const rootSpaState: RootSpaState = (window.__rootSpaState ??= {
+  appsHaveBeenRegistered: false,
+  singleSpaStarted: false,
+});
 
 declare global {
   interface Window {
@@ -60,7 +58,9 @@ function AppRegistration() {
   useEffect(() => {
     window.__rootAuthUser = auth.user ?? undefined;
     try {
-      window.dispatchEvent(new CustomEvent("auth:user-changed", { detail: auth.user }));
+      window.dispatchEvent(
+        new CustomEvent("auth:user-changed", { detail: auth.user })
+      );
     } catch {
       // no-op if CustomEvent not supported in the environment
     }

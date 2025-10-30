@@ -1,0 +1,55 @@
+{
+  "brand": {
+    "provadisAlt": "Provadis Logo"
+  },
+  "nav": {
+    "home": "Home",
+    "exams": "Exams and Grades",
+    "documentsname": "Document Management",
+    "documents": {
+      "newsfeed": "Newsfeed",
+      "documents": "Documents",
+      "requests": "Requests"
+    },
+    "masterdataname": "Master Data",
+    "masterdata": {
+      "persons": "Persons",
+      "studycontent": "Study Content"
+    },
+    "parking": "Parking Analysis",
+    "timetable": "Timetable",
+    "roomresourcesname": "Room Resources",
+    "roomresources": {
+      "bookings": "Bookings",
+      "rooms": "Rooms",
+      "buildings": "Buildings"
+    },
+    "about": "About"
+  },
+  "user": {
+    "info": {
+      "header": "User Information"
+    },
+    "cred": {
+      "userId": "User-ID",
+      "name": "Name",
+      "email": "E-Mail"
+    }
+  },
+  "snackbar": {
+    "logoutError": "Couldn't logout. Please try again.",
+    "tokenCopied": "Token copied to clipboard!"
+  },
+  "button": {
+    "logout": "Logout",
+    "copyToken": "Copy Token"
+  },
+  "root": {
+    "welcomeTitle": "Welcome to the new University Portal",
+    "subtitle": "Check out the features:"
+  },
+  "about": {
+    "title1": "SAU",
+    "title2": "Student Assistance Utility"
+  }
+}
