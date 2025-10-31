@@ -47,11 +47,6 @@ jobs:
           # Upload all files from dist directory to root-ui bucket
           $HOME/minio-binaries/mc cp --recursive dist/ minio/root-ui/
 
-      - name: Set bucket to public (optional)
-        run: |
-          # Make bucket publicly readable (optional - only if you want public access)
-          $HOME/minio-binaries/mc anonymous set public minio/root-ui || echo "Could not set public access - check permissions"
-
       - name: List uploaded files
         run: |
           echo "Files uploaded to MinIO:"
