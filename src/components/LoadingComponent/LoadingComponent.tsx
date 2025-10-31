@@ -1,6 +1,6 @@
-import {Box, CircularProgress, Typography} from "@mui/joy";
+import { Box, CircularProgress, Typography } from "@mui/joy";
 
-const LoadingComponent = () => {
+const LoadingComponent = (props: { sx?: React.CSSProperties, hideLabel?: boolean, progressSize?: "sm" | "md" | "lg" }) => {
     return <Box
         sx={{
             display: "flex",
@@ -8,10 +8,13 @@ const LoadingComponent = () => {
             gap: "25px",
             justifyContent: "center",
             alignItems: "center",
-            height: "100%"
+            height: "100%",
+            ...props.sx
         }}>
-        <CircularProgress size="lg"/>
-        <Typography color={"neutral"}>Application Loading</Typography>
+        <CircularProgress size={props.progressSize ?? "lg"} />
+        {!props.hideLabel &&
+            <Typography color={"neutral"}>Application Loading</Typography>
+        }
     </Box>
 }
 

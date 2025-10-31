@@ -1,61 +1,116 @@
-import { useLocation } from "react-router";
 import { Box } from "@mui/joy";
-import AboutPage from "../../pages/AboutPage/AboutPage.tsx";
+import { useLocation } from "react-router";
 import ExamPage from "../../pages/ExamPage/ExamPage.tsx";
-import RootPage from "../../pages/RootPage/RootPage.tsx";
-import RoomBookingService from "../../pages/RoomBookingPage/RoomBookingPage.tsx";
-import BaseDataPage from "../../pages/BaseDataPage/BaseDataPage.tsx";
-import ExaGradStudentPage from "../../pages/ExaGradStudentPage/ExaGradStudentPage.tsx";
-import PersonalInformationPage from "../../pages/PersonalInformationPage/PersonalInformationPage.tsx";
-import MasterDataPage from "../../pages/MasterDataPage/MasterDataPage.tsx";
-import EmbedPage from "../../pages/EmbedPage/EmbedPage.tsx";
+import GenericPage from "./GenericPage";
 
 const paths = [
-	{ path: "/", component: <RootPage /> },
+  {
+    path: "/",
+    component: (
+      <GenericPage
+        title={"Willkommen im neuen Hochschulportal"}
+        subtitle={"Sieh dir die Funktionen an:"}
+      />
+    ),
+  },
 
-	{ path: "/exams/exam", component: <ExamPage /> },
-	{ path: "/exams/certificate", component: <ExaGradStudentPage /> },
+  { path: "/exams", component: <ExamPage /> },
+  {
+    path: "/document-management/documents",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-07-base-data-service"}
+      />
+    ),
+  },
+  {
+    path: "/document-management/requests",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-06-antrag-service"}
+      />
+    ),
+  },
+  {
+    path: "/document-management/newsfeed",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-05-newsfeed-service"}
+      />
+    ),
+  },
 
-	// { path: "/document-management/newsfeed", component: <></> },
-	{ path: "/document-management/documents", component: <BaseDataPage /> },
-	{ path: "/document-management/requests", component: <EmbedPage pageID="@agile-software-engineering/ase-06-antrag-service"/> },
-    { path: "/document-management/newsfeed", component: <EmbedPage pageID="@agile-software-engineering/ase-05-newsfeed-service"/> },
-
-	{ path: "/data/person", component: <PersonalInformationPage /> },
-	{ path: "/data/study", component: <MasterDataPage /> },
-
-	// { path: "/parkingspot", component: <></> },
-
-	// { path: "/timetable", component: <></> },
-
-	{ path: "/room-booking", component: <RoomBookingService /> },
-
-	{ path: "/about", component: <AboutPage /> },
+  {
+    path: "/data/person",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-11-persoenliche-daten"}
+      />
+    ),
+  },
+  {
+    path: "/masterdata/studycontent",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-09-studyunit-data-service"}
+      />
+    ),
+  },
+  {
+    path: "/parkingspot",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-03-parking-service"}
+      />
+    ),
+  },
+  {
+    path: "/room-booking",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-01-room-booking-service"}
+      />
+    ),
+  },
+  {
+    path: "/timetable",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-02-timetable-service"}
+      />
+    ),
+  },
+  {
+    path: "/about",
+    component: (
+      <GenericPage title={"SAU"} subtitle={"Student Assistance Utility"} />
+    ),
+  },
 ];
 
 const RoutingComponent = () => {
-	const { pathname } = useLocation();
+  const { pathname } = useLocation();
 
-	const activeElement = paths.find((path) =>
-		path.path === "/"
-			? pathname === "/"
-			: pathname === path.path || pathname.startsWith(path.path + "/"),
-	);
+  const activeElement = paths.find((path) =>
+    path.path === "/"
+      ? pathname === "/"
+      : pathname === path.path || pathname.startsWith(path.path + "/")
+  );
 
-	return (
-		<>
-			{paths.map((path) => (
-				<Box
-					sx={{
-						display: activeElement?.path === path.path ? "flex" : "none",
-						flexGrow: 1,
-					}}
-					key={path.path}
-				>
-					{path.component}
-				</Box>
-			))}
-		</>
-	);
+  return (
+    <>
+      {paths.map((path) => (
+        <Box
+          sx={{
+            display: activeElement?.path === path.path ? "flex" : "none",
+            flexGrow: 1,
+          }}
+          key={path.path}
+        >
+          {path.component}
+        </Box>
+      ))}
+    </>
+  );
 };
 export default RoutingComponent;
