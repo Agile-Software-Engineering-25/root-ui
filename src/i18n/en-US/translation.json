@@ -42,7 +42,8 @@
   },
   "button": {
     "logout": "Logout",
-    "copyToken": "Copy Token"
+    "copyToken": "Copy Token",
+    "settings": "Settings"
   },
   "root": {
     "welcomeTitle": "Welcome to the new University Portal",
