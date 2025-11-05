@@ -110,7 +110,7 @@ export default function NavMenu() {
             }}
             variant="outlined"
           >
-            Settings
+            {t("button.settings")}
           </Button>
         </Stack>
       </Modal>

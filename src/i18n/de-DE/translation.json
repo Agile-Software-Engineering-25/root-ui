@@ -42,7 +42,8 @@
   },
   "button": {
     "logout": "Abmelden",
-    "copyToken": "Token kopieren"
+    "copyToken": "Token kopieren",
+    "settings": "Einstellungen"
   },
   "root": {
     "welcomeTitle": "Willkommen im neuen Hochschulportal",
