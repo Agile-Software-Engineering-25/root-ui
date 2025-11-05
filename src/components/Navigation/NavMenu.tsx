@@ -1,10 +1,10 @@
-import { Modal } from "@agile-software/shared-components";
-import { Person } from "@mui/icons-material";
-import { Button, IconButton, Stack } from "@mui/joy";
-import { enqueueSnackbar } from "notistack";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useAuth } from "react-oidc-context";
+import {Modal} from "@agile-software/shared-components";
+import {Person} from "@mui/icons-material";
+import {Button, IconButton, Stack} from "@mui/joy";
+import {enqueueSnackbar} from "notistack";
+import {useState} from "react";
+import {useTranslation} from "react-i18next";
+import {useAuth} from "react-oidc-context";
 import useUser from "../../hooks/useUser";
 import EmbeddedApplication from "../EmbeddedApplication/EmbeddedApplication";
 import LanguageToggle from "../LanguageToggle/LanguageToggle";
@@ -13,16 +13,16 @@ import LoadingComponent from "../LoadingComponent/LoadingComponent";
 type User = ReturnType<typeof useUser>;
 
 const userCreds = [
-  { name: "user.cred.userId", func: (user: User) => user.getUserId() },
-  { name: "user.cred.name", func: (user: User) => user.getFullName() },
-  { name: "user.cred.email", func: (user: User) => user.getEmail() },
+  {name: "user.cred.userId", func: (user: User) => user.getUserId()},
+  {name: "user.cred.name", func: (user: User) => user.getFullName()},
+  {name: "user.cred.email", func: (user: User) => user.getEmail()},
 ];
 
 export default function NavMenu() {
   const auth = useAuth();
   const user = useUser();
   const [openUserModal, setOpenUserModal] = useState(false);
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   const logout = () => {
     auth.signoutRedirect().catch((e) => {
@@ -39,7 +39,7 @@ export default function NavMenu() {
       navigator.clipboard
         .writeText(token)
         .then(() =>
-          enqueueSnackbar(t("snackbar.tokenCopied"), { variant: "success" })
+          enqueueSnackbar(t("snackbar.tokenCopied"), {variant: "success"})
         )
         .catch((e) => console.error(e));
     }
@@ -51,10 +51,10 @@ export default function NavMenu() {
         display: "flex",
         flexDirection: "row",
         justifyContent: "flex-end",
-        gap: { sm: 1, md: 2, lg: 3 },
+        gap: {sm: 1, md: 2, lg: 3},
       }}
     >
-      <LanguageToggle />
+      <LanguageToggle/>
       {/* Notice bell modal */}
       <EmbeddedApplication
         name="@agile-software-engineering/ase-15-notification-service"
@@ -77,7 +77,7 @@ export default function NavMenu() {
         color={"primary"}
         variant={"plain"}
       >
-        <Person />
+        <Person/>
       </IconButton>
       <Modal
         header={t("user.info.header")}
@@ -88,10 +88,10 @@ export default function NavMenu() {
           zIndex: 9999999,
         }}
       >
-        <Stack spacing={1} sx={{ marginBottom: 2 }}>
+        <Stack spacing={1} sx={{marginBottom: 2}}>
           {userCreds.map((cred, idx) => (
             <Stack key={`cred-${idx}`} direction="row" spacing={1}>
-              <span style={{ fontWeight: "bold", minWidth: "80px" }}>
+              <span style={{fontWeight: "bold", minWidth: "80px"}}>
                 {t(cred.name)}:
               </span>
               <span>{cred.func(user)}</span>
@@ -102,6 +102,15 @@ export default function NavMenu() {
           <Button onClick={logout}>{t("button.logout")}</Button>
           <Button onClick={copyToken} variant="outlined">
             {t("button.copyToken")}
+          </Button>
+          <Button
+            onClick={() => {
+              const keycloak_account_url = auth.settings.authority + "/account";
+              window.location.href = keycloak_account_url;
+            }}
+            variant="outlined"
+          >
+            Settings
           </Button>
         </Stack>
       </Modal>
