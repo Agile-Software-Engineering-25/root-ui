@@ -32,7 +32,7 @@ const paths = [
     ),
   },
   {
-    path: "/document-management/newsfeed",
+    path: "/newsfeed",
     component: (
       <GenericPage
         embedName={"@agile-software-engineering/ase-05-newsfeed-service"}

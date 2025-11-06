@@ -18,7 +18,7 @@ export default [
   },
   {
     name: "@agile-software-engineering/ase-05-newsfeed-service",
-    basename: "/document-management/newsfeed",
+    basename: "/newsfeed",
   },
   {
     name: "@agile-software-engineering/ase-06-antrag-service",
