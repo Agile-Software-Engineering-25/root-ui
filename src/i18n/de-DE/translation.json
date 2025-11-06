@@ -5,9 +5,9 @@
   "nav": {
     "home": "Startseite",
     "exams": "Prüfungen und Noten",
+    "newsfeed": "Newsfeed",
     "documentsname": "Dokumentenmanagement",
     "documents": {
-      "newsfeed": "Newsfeed",
       "documents": "Dokumente",
       "requests": "Anträge"
     },

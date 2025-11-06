@@ -29,10 +29,10 @@ const routes: Route[] = [
     name: "nav.exams",
     path: "/exams",
   },
+  {name: "nav.newsfeed", path: "/newsfeed"},
   {
     name: "nav.documentsname",
     children: [
-      {name: "nav.documents.newsfeed", path: "/document-management/newsfeed"},
       {
         name: "nav.documents.documents",
         path: "/document-management/documents",

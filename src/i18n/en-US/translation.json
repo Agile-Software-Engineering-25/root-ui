@@ -5,9 +5,9 @@
   "nav": {
     "home": "Home",
     "exams": "Exams and Grades",
+    "newsfeed": "Newsfeed",
     "documentsname": "Document Management",
     "documents": {
-      "newsfeed": "Newsfeed",
       "documents": "Documents",
       "requests": "Requests"
     },
