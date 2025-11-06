@@ -1,110 +1,143 @@
-import { Box, Stack } from "@mui/joy";
-import { useNavigate } from "react-router";
-import { useWindowSize } from "../../hooks/useWindowSize.ts";
 import provadisIcon from "@assets/provadis-icon.svg";
-import NavMenu from "./NavMenu.tsx";
+import {Box, Stack} from "@mui/joy";
+import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router";
+import {useWindowSize} from "../../hooks/useWindowSize.ts";
+import {UserRole} from "../../types/enums.ts";
 import NavContent from "./NavContent.tsx";
 import NavDrawer from "./NavDrawer.tsx";
+import NavMenu from "./NavMenu.tsx";
 
 const RESP_BREAKPOINT = 1250;
 
-const routes = [
-	{
-		name: "Prüfungen und Noten",
-		children: [
-			{ name: "Zeugnisse", path: "/exams/certificate" },
-			{ name: "Prüfungen", path: "/exams/exam" },
-		],
-	},
-	{
-		name: "Dokumentenmanagement",
-		children: [
-			{ name: "Newsfeed", path: "/document-management/newsfeed" },
-			{ name: "Dokumente", path: "/document-management/documents" },
-			{ name: "Anträge", path: "/document-management/requests" },
-		],
-	},
-	{
-		name: "Stammdaten",
-		children: [
-			{ name: "Personen", path: "/data/person" },
-			{ name: "Studieninhalt", path: "/data/study" },
-		],
-	},
-	{
-		name: "Parkplatzanalyse",
-		path: "/parkingspot",
-	},
-	{
-		name: "Stundenplan",
-		path: "/timetable",
-	},
-	{
-		name: "Raumressourcen",
-		path: "/room-booking",
-	},
-	{
-		name: "About",
-		path: "/about",
-	},
+export type Route = {
+  name: string;
+  path?: string;
+  children?: Subroute[];
+  visibleOnRoles?: UserRole[];
+};
+
+export type Subroute = {
+  name: string;
+  path: string;
+  disabled?: boolean;
+  visibleOnRoles?: UserRole[];
+};
+
+const routes: Route[] = [
+  {
+    name: "nav.exams",
+    path: "/exams",
+  },
+  {
+    name: "nav.documentsname",
+    children: [
+      {name: "nav.documents.newsfeed", path: "/document-management/newsfeed"},
+      {
+        name: "nav.documents.documents",
+        path: "/document-management/documents",
+      },
+      {name: "nav.documents.requests", path: "/document-management/requests"},
+    ],
+  },
+  {
+    name: "nav.masterdataname",
+    children: [
+      {name: "nav.masterdata.persons", path: "/data/person"},
+      {
+        name: "nav.masterdata.studycontent",
+        path: "/masterdata/studycontent",
+        visibleOnRoles: [UserRole.Lecturer, UserRole.UniversityAdministrativeStaff, UserRole.SauAdmin]
+      },
+    ],
+  },
+  {
+    name: "nav.parking",
+    path: "/parkingspot",
+  },
+  {
+    name: "nav.timetable",
+    path: "/timetable",
+  },
+  {
+    name: "nav.roomresourcesname",
+    children: [
+      {
+        name: "nav.roomresources.bookings",
+        path: "/room-booking/bookings",
+      },
+      {
+        name: "nav.roomresources.rooms",
+        path: "/room-booking/rooms",
+      },
+      {
+        name: "nav.roomresources.buildings",
+        path: "/room-booking/buildings",
+      },
+    ],
+  },
+  {
+    name: "nav.about",
+    path: "/about",
+  },
 ];
 
-export interface NavBarElement {
-	name: string;
-	path?: string;
-	children?: { name: string; path: string }[];
-}
-
 const Navigation = () => {
-	const navigate = useNavigate();
-	const { width } = useWindowSize();
+  const navigate = useNavigate();
+  const {width} = useWindowSize();
+  const {t} = useTranslation();
 
-	return (
-		<Stack 
-			sx={{
-				width: "100%", 
-				maxWidth: "2000px",margin: "0 auto", 
-				display: "flex", 
-				flexDirection: "row", 
-				justifyContent: "space-between", 
-				gap: "10px"
-			}}>
-			
-			<Box sx={{flex: "1 1 0"}}>
-				{
-					width < RESP_BREAKPOINT ? 
-					<NavDrawer navBarElements={routes} /> 
-					: 
-					<img 
-						src={provadisIcon} 
-						alt={"Provadis Logo"} 
-						style={{ height: "36px", cursor: "pointer" }} 
-						onClick={() => navigate("/")}
-					/>
-				}
-			</Box>
+  return (
+    <Stack
+      sx={{
+        width: "100%",
+        maxWidth: "2000px",
+        margin: "0 auto",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        gap: "10px",
+      }}
+    >
+      <Box sx={{flex: "1 1 0", alignItems: "center"}}>
+        {width < RESP_BREAKPOINT ? (
+          <NavDrawer navBarElements={routes}/>
+        ) : (
+          <img
+            src={provadisIcon}
+            alt={t("brand.provadisAlt")}
+            style={{height: "36px", cursor: "pointer"}}
+            onClick={() => navigate("/")}
+          />
+        )}
+      </Box>
 
-			<Box 
-				sx={{ flex: "0 0 auto", display: "flex", justifyContent: "center" }}
-			>
-				{
-					width >= RESP_BREAKPOINT ? 
-					<NavContent navBarElements={routes} /> 
-					: 
-					<img 
-						src={provadisIcon} 
-						alt={"Provadis Logo"} 
-						style={{ height: "36px", cursor: "pointer" }} 
-						onClick={() => navigate("/")}
-					/>
-				}
-			</Box>
+      <Box
+        sx={{
+          flex: "0 0 auto",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {width >= RESP_BREAKPOINT ? (
+          <NavContent navBarElements={routes}/>
+        ) : (
+          <img
+            src={provadisIcon}
+            alt={t("brand.provadisAlt")}
+            style={{height: "36px", cursor: "pointer"}}
+            onClick={() => navigate("/")}
+          />
+        )}
+      </Box>
 
-			<Box sx={{flex: "1 1 0"}}>
-				<NavMenu />
-			</Box>
-		</Stack>
-	);
+      <Box sx={{flex: "1 1 0"}}>
+        <NavMenu/>
+      </Box>
+    </Stack>
+  );
 };
 
 export default Navigation;

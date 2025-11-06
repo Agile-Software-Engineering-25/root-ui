@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { User } from 'oidc-client-ts';
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
+import { User } from "oidc-client-ts";
+import { useEffect, useState } from "react";
 
 // Global user state
 let globalUser: User | null = null;
@@ -27,27 +27,27 @@ export const useUser = () => {
   }, []);
 
   const getUserId = (): string => {
-    return user?.profile.sub ?? '';
+    return user?.profile.sub ?? "";
   };
 
   const getFirstName = (): string => {
-    return user?.profile.given_name ?? '';
+    return user?.profile.given_name ?? "";
   };
 
   const getLastName = (): string => {
-    return user?.profile.family_name ?? '';
+    return user?.profile.family_name ?? "";
   };
 
   const getFullName = (): string => {
-    return user?.profile.name ?? '';
+    return user?.profile.name ?? "";
   };
 
   const getEmail = (): string => {
-    return user?.profile.email ?? '';
+    return user?.profile.email ?? "";
   };
 
   const getAccessToken = (): string => {
-    return user?.access_token ?? '';
+    return user?.access_token ?? "";
   };
 
   // Function to check if user has a specific role
@@ -63,6 +63,11 @@ export const useUser = () => {
     return roles.includes(role);
   };
 
+  const hasAnyRole = (rolesToCheck: string[]): boolean => {
+    console.log("Checking roles:", rolesToCheck);
+    return rolesToCheck.some((role) => hasRole(role));
+  };
+
   return {
     user,
     getUserId,
@@ -72,6 +77,7 @@ export const useUser = () => {
     getEmail,
     getAccessToken,
     hasRole,
+    hasAnyRole,
   };
 };
 

@@ -1,9 +1,11 @@
-import {Box} from "@mui/joy";
+import { Box } from "@mui/joy";
+import React from "react";
 import LoadingComponent from "../LoadingComponent/LoadingComponent.tsx";
 
 const EmbeddedApplication = (props: {
     name: string;
-    sx: React.CSSProperties;
+    sx?: React.CSSProperties;
+    placeholder?: React.ReactNode;
 }) => {
     return (
         <Box
@@ -12,7 +14,9 @@ const EmbeddedApplication = (props: {
             }}
             id={`single-spa-application:${props.name}`}
         >
-            <LoadingComponent/>
+            {props.placeholder ? props.placeholder :
+                <LoadingComponent />
+            }
         </Box>
     );
 };

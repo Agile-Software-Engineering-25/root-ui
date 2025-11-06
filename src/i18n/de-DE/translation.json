@@ -1,0 +1,56 @@
+{
+  "brand": {
+    "provadisAlt": "Provadis-Logo"
+  },
+  "nav": {
+    "home": "Startseite",
+    "exams": "Prüfungen und Noten",
+    "documentsname": "Dokumentenmanagement",
+    "documents": {
+      "newsfeed": "Newsfeed",
+      "documents": "Dokumente",
+      "requests": "Anträge"
+    },
+    "masterdataname": "Stammdaten",
+    "masterdata": {
+      "persons": "Personen",
+      "studycontent": "Studieninhalt"
+    },
+    "parking": "Parkplatzanalyse",
+    "timetable": "Stundenplan",
+    "roomresourcesname": "Raumressourcen",
+    "roomresources": {
+      "bookings": "Buchungen",
+      "rooms": "Räume",
+      "buildings": "Gebäude"
+    },
+    "about": "Über"
+  },
+  "user": {
+    "info": {
+      "header": "Benutzerinformationen"
+    },
+    "cred": {
+      "userId": "User-ID",
+      "name": "Name",
+      "email": "E-Mail"
+    }
+  },
+  "snackbar": {
+    "logoutError": "Abmeldung fehlgeschlagen. Bitte versuche es erneut.",
+    "tokenCopied": "Token in die Zwischenablage kopiert!"
+  },
+  "button": {
+    "logout": "Abmelden",
+    "copyToken": "Token kopieren",
+    "settings": "Einstellungen"
+  },
+  "root": {
+    "welcomeTitle": "Willkommen im neuen Hochschulportal",
+    "subtitle": "Sieh dir die Funktionen an:"
+  },
+  "about": {
+    "title1": "SAU",
+    "title2": "Studentenunterstützungsdienst"
+  }
+}
