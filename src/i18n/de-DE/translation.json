@@ -6,8 +6,8 @@
     "home": "Startseite",
     "exams": {
       "generic": "Prüfungen und Noten",
-      "certificates": "Zeugnisse",
-      "examsOverview": "Klausurübersicht"
+      "certificates": "Abschlusszeugnisse",
+      "examsOverview": "Prüfungsübersicht"
     },
     "newsfeed": "Newsfeed",
     "documentsname": "Dokumentenmanagement",
