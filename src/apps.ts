@@ -13,10 +13,6 @@ export default [
     basename: "/parkingspot",
   },
   {
-    name: "stundenplan", // <---- TODO: Change here to your project's name. Then in importMap.json add that name and the link to your ui.
-    basename: "/timetable",
-  },
-  {
     name: "@agile-software-engineering/ase-05-newsfeed-service",
     basename: "/newsfeed",
   },
@@ -38,7 +34,7 @@ export default [
   },
   {
     name: "@agile-software-engineering/ase-11-stammdatenverwaltung",
-    basename: "/masterdata-management",
+    basename: "/masterdata/management",
   },
   {
     name: "@agile-software-engineering/ase-12-lecturer-service",

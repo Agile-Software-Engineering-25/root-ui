@@ -19,50 +19,56 @@ export default function NavContent({
       orientation="horizontal"
       sx={{ display: "flex", justifyContent: "center" }}
     >
-      {navBarElements.map((element, index) =>
-        !element.visibleOnRoles || user.hasAnyRole(element.visibleOnRoles) ? (
-          <ListItem key={`nav-${index}-${element.name}`}>
-            <ListItemButton
-              sx={{ userSelect: "none", borderRadius: "5px" }}
-              selected={
-                window.location.pathname != "/" &&
-                (element.path === window.location.pathname ||
-                  element.children
-                    ?.map((child) => child.path)
-                    .join("")
-                    .includes(window.location.pathname))
-              }
-              onClick={() =>
-                navigate(element?.path ?? element.children?.[0].path ?? "#")
-              }
-              onMouseEnter={() =>
-                setCurrentItem(element.children ? index : null)
-              }
-            >
-              {t(element.name)}
-            </ListItemButton>
-            {currentItem === index && (
-              <List
-                orientation="horizontal"
-                onMouseLeave={() => setCurrentItem(null)}
-                sx={{
-                  width: "100vw",
-                  p: "10px",
-                  position: "fixed",
-                  left: "0",
-                  top: "68px",
-                  justifyContent: "center",
-                  gap: "20px",
-                  borderTop: "1px solid #00000032",
-                  borderBottom: "1px solid #F3F8FF",
-                  backgroundColor: "#F3F8FF",
-                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                  boxSizing: "border-box",
+      {navBarElements.map((element, index) => {
+        if (!element.visibleOnRoles || user.hasAnyRole(element.visibleOnRoles)) {
+          const visibleChildren = element.children?.filter(
+            (child) =>
+              !child.visibleOnRoles || user.hasAnyRole(child.visibleOnRoles)
+          ) ?? [];
+
+          return (
+            <ListItem key={`nav-${index}-${element.name}`}>
+              <ListItemButton
+                sx={{ userSelect: "none", borderRadius: "5px" }}
+                selected={
+                  window.location.pathname != "/" &&
+                  (element.path === window.location.pathname ||
+                    element.children
+                      ?.map((child) => child.path)
+                      .join("")
+                      .includes(window.location.pathname))
+                }
+                onClick={() => {
+                  navigate(
+                    visibleChildren[0]?.path ?? element?.path ?? "#"
+                  );
                 }}
+                onMouseEnter={() =>
+                  setCurrentItem(visibleChildren.length > 0 ? index : null)
+                }
               >
-                {element.children?.map((child, cidx) =>
-                  !child.visibleOnRoles ||
-                  user.hasAnyRole(child.visibleOnRoles) ? (
+                {t(element.name)}
+              </ListItemButton>
+              {currentItem === index && (
+                <List
+                  orientation="horizontal"
+                  onMouseLeave={() => setCurrentItem(null)}
+                  sx={{
+                    width: "100vw",
+                    p: "10px",
+                    position: "fixed",
+                    left: "0",
+                    top: "68px",
+                    justifyContent: "center",
+                    gap: "20px",
+                    borderTop: "1px solid #00000032",
+                    borderBottom: "1px solid #F3F8FF",
+                    backgroundColor: "#F3F8FF",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    boxSizing: "border-box",
+                  }}
+                >
+                  {visibleChildren.map((child, cidx) => (
                     <ListItem key={`child-${index}-${cidx}`}>
                       <ListItemButton
                         selected={child.path === window.location.pathname}
@@ -72,13 +78,14 @@ export default function NavContent({
                         {t(child.name)}
                       </ListItemButton>
                     </ListItem>
-                  ) : null
-                )}
-              </List>
-            )}
-          </ListItem>
-        ) : null
-      )}
+                  ))}
+                </List>
+              )}
+            </ListItem>
+          );
+        }
+        return null;
+      })}
     </List>
   );
 }

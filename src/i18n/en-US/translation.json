@@ -4,7 +4,11 @@
   },
   "nav": {
     "home": "Home",
-    "exams": "Exams and Grades",
+    "exams": {
+      "generic": "Exams and Grades",
+      "certificates": "Certificates",
+      "examsOverview": "Exam Overview"
+    },
     "newsfeed": "Newsfeed",
     "documentsname": "Document Management",
     "documents": {
@@ -14,7 +18,8 @@
     "masterdataname": "Master Data",
     "masterdata": {
       "persons": "Persons",
-      "studycontent": "Study Content"
+      "studycontent": "Study Content",
+      "management": "Management"
     },
     "parking": "Parking Analysis",
     "timetable": "Timetable",
