@@ -4,7 +4,11 @@
   },
   "nav": {
     "home": "Home",
-    "exams": "Exams and Grades",
+    "exams": {
+      "generic": "Exams and Grades",
+      "certificates": "Certificate",
+      "examsOverview": "Exam Overview"
+    },
     "newsfeed": "Newsfeed",
     "documentsname": "Document Management",
     "documents": {

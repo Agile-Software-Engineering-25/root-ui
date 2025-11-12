@@ -4,7 +4,11 @@
   },
   "nav": {
     "home": "Startseite",
-    "exams": "Prüfungen und Noten",
+    "exams": {
+      "generic": "Prüfungen und Noten",
+      "certificates": "Zeugnisse",
+      "examsOverview": "Klausurübersicht"
+    },
     "newsfeed": "Newsfeed",
     "documentsname": "Dokumentenmanagement",
     "documents": {

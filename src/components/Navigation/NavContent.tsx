@@ -32,11 +32,38 @@ export default function NavContent({
                     .join("")
                     .includes(window.location.pathname))
               }
-              onClick={() =>
-                navigate(element?.path ?? element.children?.[0].path ?? "#")
-              }
+              onClick={() => {
+                console.log(
+                  element.children?.filter(
+                    (child) =>
+                      !child.visibleOnRoles ||
+                      user.hasAnyRole(child.visibleOnRoles)
+                  )?.[0]?.path ??
+                    element?.path ??
+                    "#"
+                );
+                navigate(
+                  element.children?.filter(
+                    (child) =>
+                      !child.visibleOnRoles ||
+                      user.hasAnyRole(child.visibleOnRoles)
+                  )?.[0]?.path ??
+                    element?.path ??
+                    "#"
+                );
+              }}
               onMouseEnter={() =>
-                setCurrentItem(element.children ? index : null)
+                setCurrentItem(
+                  (
+                    element.children?.filter((child) =>
+                      child.visibleOnRoles
+                        ? user.hasAnyRole(child.visibleOnRoles)
+                        : true
+                    ) ?? []
+                  ).length > 0
+                    ? index
+                    : null
+                )
               }
             >
               {t(element.name)}
