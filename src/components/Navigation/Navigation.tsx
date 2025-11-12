@@ -71,6 +71,14 @@ const routes: Route[] = [
           UserRole.SauAdmin,
         ],
       },
+      {
+        name: "nav.masterdata.management",
+        path: "/masterdata/management",
+        visibleOnRoles: [
+          UserRole.UniversityAdministrativeStaff,
+          UserRole.SauAdmin,
+        ],
+      },
     ],
   },
   {

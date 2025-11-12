@@ -18,7 +18,8 @@
     "masterdataname": "Stammdaten",
     "masterdata": {
       "persons": "Personen",
-      "studycontent": "Studieninhalt"
+      "studycontent": "Studieninhalt",
+      "management": "Stammdatenverwaltung"
     },
     "parking": "Parkplatzanalyse",
     "timetable": "Stundenplan",

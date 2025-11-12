@@ -18,7 +18,8 @@
     "masterdataname": "Master Data",
     "masterdata": {
       "persons": "Persons",
-      "studycontent": "Study Content"
+      "studycontent": "Study Content",
+      "management": "Management"
     },
     "parking": "Parking Analysis",
     "timetable": "Timetable",

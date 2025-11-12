@@ -38,7 +38,7 @@ export default [
   },
   {
     name: "@agile-software-engineering/ase-11-stammdatenverwaltung",
-    basename: "/masterdata-management",
+    basename: "/masterdata/management",
   },
   {
     name: "@agile-software-engineering/ase-12-lecturer-service",
