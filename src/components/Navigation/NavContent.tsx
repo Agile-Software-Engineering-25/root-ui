@@ -33,15 +33,6 @@ export default function NavContent({
                     .includes(window.location.pathname))
               }
               onClick={() => {
-                console.log(
-                  element.children?.filter(
-                    (child) =>
-                      !child.visibleOnRoles ||
-                      user.hasAnyRole(child.visibleOnRoles)
-                  )?.[0]?.path ??
-                    element?.path ??
-                    "#"
-                );
                 navigate(
                   element.children?.filter(
                     (child) =>
