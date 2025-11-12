@@ -49,6 +49,14 @@ const paths = [
     ),
   },
   {
+    path: "/masterdata/management",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-11-stammdatenverwaltung"}
+      />
+    ),
+  },
+  {
     path: "/masterdata/studycontent",
     component: (
       <GenericPage

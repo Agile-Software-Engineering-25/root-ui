@@ -4,7 +4,11 @@
   },
   "nav": {
     "home": "Startseite",
-    "exams": "Prüfungen und Noten",
+    "exams": {
+      "generic": "Prüfungen und Noten",
+      "certificates": "Abschlusszeugnisse",
+      "examsOverview": "Prüfungsübersicht"
+    },
     "newsfeed": "Newsfeed",
     "documentsname": "Dokumentenmanagement",
     "documents": {
@@ -14,7 +18,8 @@
     "masterdataname": "Stammdaten",
     "masterdata": {
       "persons": "Personen",
-      "studycontent": "Studieninhalt"
+      "studycontent": "Studieninhalt",
+      "management": "Stammdatenverwaltung"
     },
     "parking": "Parkplatzanalyse",
     "timetable": "Stundenplan",
