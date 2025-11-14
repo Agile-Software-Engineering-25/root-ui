@@ -19,7 +19,8 @@
     "masterdata": {
       "persons": "Persons",
       "studycontent": "Study Content",
-      "management": "Management"
+      "management": "Management",
+      "accessrights": "Access Rights"
     },
     "parking": "Parking Analysis",
     "timetable": "Timetable",

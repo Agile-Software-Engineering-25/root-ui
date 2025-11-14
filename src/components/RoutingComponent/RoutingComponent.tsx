@@ -94,6 +94,14 @@ const paths = [
       <GenericPage title={"SAU"} subtitle={"Student Assistance Utility"} />
     ),
   },
+  {
+    path: "/masterdata/access-rights",
+    component: (
+      <GenericPage
+        embedName={"@agile-software-engineering/ase-08-access-rights-service"}
+      />
+    ),
+  },
 ];
 
 const RoutingComponent = () => {
