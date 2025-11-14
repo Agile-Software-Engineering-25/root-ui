@@ -25,6 +25,10 @@ export default [
     basename: "/document-management/documents",
   },
   {
+    name: "@agile-software-engineering/ase-08-access-rights-service",
+    basename: "/masterdata/access-rights",
+  },
+  {
     name: "@agile-software-engineering/ase-09-studyunit-data-service",
     basename: "/masterdata/studycontent",
   },

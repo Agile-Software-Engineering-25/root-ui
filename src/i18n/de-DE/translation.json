@@ -19,7 +19,8 @@
     "masterdata": {
       "persons": "Personen",
       "studycontent": "Studieninhalt",
-      "management": "Stammdatenverwaltung"
+      "management": "Stammdatenverwaltung",
+      "accessrights": "Berechtigungen"
     },
     "parking": "Parkplatzanalyse",
     "timetable": "Stundenplan",
