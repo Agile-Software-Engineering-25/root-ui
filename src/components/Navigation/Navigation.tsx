@@ -55,7 +55,11 @@ const routes: Route[] = [
         name: "nav.documents.documents",
         path: "/document-management/documents",
       },
-      { name: "nav.documents.requests", path: "/document-management/requests" },
+      {
+        name: "nav.documents.requests",
+        path: "/document-management/requests",
+        visibleOnRoles: [UserRole.Student],
+      },
     ],
   },
   {
